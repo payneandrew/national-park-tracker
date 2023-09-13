@@ -18,10 +18,12 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  /* Use national park-inspired colors for the background */
   background: linear-gradient(
       to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
+      #78b445,
+      /* Light green like forest foliage */ #2e7d32
+        /* Dark green like lush vegetation */
     )
     rgb(var(--background-start-rgb));
 }
