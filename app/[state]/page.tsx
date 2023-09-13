@@ -1,30 +1,34 @@
-"use client";
-
-import { parks } from "@/mocks/parks";
+import { ParkResponse } from "@/types/parks";
 import axios from "axios";
 import Head from "next/head";
-import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import Parks from "../components/parks";
+const states = require("us-state-converter");
 
-const StatePage = () => {
-  const searchParams = useSearchParams();
-  const state = searchParams.get("state");
+const StatePage = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
+  const state = searchParams.state;
+  const stateCode = states.abbr(searchParams.state);
 
-  const [nationalParks, setNationalParks] = useState([]);
-  console.log(nationalParks);
-
-  useEffect(() => {
-    // Make the API request and update the state
-    axios
-      .get("parks")
-      .then((response) => {
-        setNationalParks(response.data.data);
+  const getParkByState = async (stateCode: string): Promise<ParkResponse> => {
+    const allParks = await axios
+      .get(`http://localhost:3000/api/parks`, {
+        params: {
+          stateCode: stateCode,
+        },
       })
-      .catch((error) => {
-        console.error("API request error:", error);
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch(async (err) => {
+        return err;
       });
-  }, []);
+    return allParks;
+  };
+
+  const nationalParks = await getParkByState(stateCode);
 
   return (
     <div>
@@ -37,24 +41,8 @@ const StatePage = () => {
       </Head>
 
       <div className="container mx-auto mt-8">
-        <h1 className="text-3xl font-semibold mb-4">{`${state} Parks`}</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {parks[0].data.map((park) => (
-            <div key={park.id} className="bg-white p-4 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-2 text-rocks-canyons">
-                {park.fullName}
-              </h2>
-              <p className="text-gray-700">{park.description}</p>
-              <Image
-                src={park.images[0].url}
-                alt={park.images[0].altText}
-                width={100}
-                height={100}
-                layout="responsive"
-              />
-            </div>
-          ))}
-        </div>
+        <h1 className="text-3xl font-semibold mb-4 text-white">{`${state} Parks`}</h1>
+        {nationalParks && <Parks parks={nationalParks.data} />}
       </div>
     </div>
   );

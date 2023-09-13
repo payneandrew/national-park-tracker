@@ -1,29 +1,23 @@
 import axios from "axios";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
-export default async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const stateCode = searchParams.get("stateCode");
     const response = await axios.get("https://developer.nps.gov/api/v1/parks", {
       headers: {
         Accept: "application/json",
       },
       params: {
         api_key: process.env.NP_API_KEY,
+        stateCode,
       },
     });
 
-    if (response.status === 200) {
-      const nationalParksData = response.data;
-
-      // Respond with the data as JSON
-      res.status(200).json(nationalParksData);
-    } else {
-      // If the request was not successful, respond with an error
-      res.status(response.status).json({ error: "Failed to fetch data" });
-    }
+    return NextResponse.json(response.data);
   } catch (error) {
-    // Handle any errors that occur during the request
     console.error("An error occurred while fetching data:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    // return a 500 Internal Server Error response
   }
 }

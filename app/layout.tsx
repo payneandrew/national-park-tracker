@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Image from "next/image";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,18 +19,21 @@ export default function RootLayout({
     <div className="bg-nature-bg text-nature-text font-sans min-h-screen">
       <nav className="bg-wood-trees p-4">
         <div className="container mx-auto flex items-center justify-between">
-          <a href="/" className="text-white text-2xl font-semibold">
-            National Parks
-          </a>
+          <div className="flex items-center">
+            <Image
+              src="/logos/US-NationalParkService-Logo.svg"
+              alt="National Park Service Logo"
+              width={100}
+              height={100}
+            />
+            <a href="/" className="text-white text-2xl font-semibold">
+              National Parks
+            </a>
+          </div>
           <ul className="flex space-x-4">
             <li>
-              <a href="/" className="text-white hover:text-green-200">
+              <a href="/" className="text-white hover:text-green-600 text-bold">
                 Explore Parks
-              </a>
-            </li>
-            <li>
-              <a href="/visited" className="text-white hover:text-green-200">
-                Visited Parks
               </a>
             </li>
           </ul>
