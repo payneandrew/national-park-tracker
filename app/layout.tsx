@@ -38,6 +38,14 @@ export default function RootLayout({
                     Explore Parks
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="/visited-parks"
+                    className="text-white hover:text-green-600 text-bold"
+                  >
+                    Visited Parks
+                  </a>
+                </li>
               </ul>
             </div>
           </nav>

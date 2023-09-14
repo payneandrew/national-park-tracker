@@ -22,17 +22,19 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
     }
   }, []);
 
-  const isParkVisited = (parkId: string) => {
-    return visited.includes(parkId);
+  const isParkVisited = (parkCode: string) => {
+    return visited.includes(parkCode);
   };
 
-  const handleSetVisited = (parkId: string) => {
+  const handleSetVisited = (parkCode: string) => {
     let newVisited: string[];
 
-    if (visited.includes(parkId)) {
-      newVisited = visited.filter((id) => id !== parkId);
+    if (visited.includes(parkCode)) {
+      newVisited = visited.filter((id) => id !== parkCode);
+      alert("Park removed from visited list!");
     } else {
-      newVisited = [...visited, parkId];
+      newVisited = [...visited, parkCode];
+      alert("Park added to visited list.");
     }
     setVisited(newVisited);
     localStorage.setItem("visited", JSON.stringify(newVisited));
@@ -49,16 +51,16 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
             <button
               className="flex-shrink-0"
               onClick={() => {
-                handleSetVisited(park.id);
+                handleSetVisited(park.parkCode);
               }}
             >
               <Image
                 src={
-                  isParkVisited(park.id)
+                  isParkVisited(park.parkCode)
                     ? "/icons/checked.png"
                     : "/icons/unchecked.png"
                 }
-                alt={isParkVisited(park.id) ? "Visited" : "Not Visited"}
+                alt={isParkVisited(park.parkCode) ? "Visited" : "Not Visited"}
                 width={50}
                 height={50}
               />
