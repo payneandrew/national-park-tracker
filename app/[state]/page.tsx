@@ -2,16 +2,21 @@ import axios from "axios";
 import Head from "next/head";
 import Parks from "../components/parks";
 const states = require("us-state-converter");
+export const dynamic = "force-dynamic";
 
 const StatePage = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  const state = searchParams.state;
-  const stateCode = states.abbr(searchParams.state);
+  const state = searchParams?.state;
+  const stateCode = state && states.abbr(searchParams.state);
 
   console.log(stateCode);
+
+  if (!state || !stateCode) {
+    return <div>Loading...</div>;
+  }
 
   const nationalParks = await axios.get(
     "https://developer.nps.gov/api/v1/parks",
@@ -25,10 +30,6 @@ const StatePage = async ({
       },
     }
   );
-
-  if (!state) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>
