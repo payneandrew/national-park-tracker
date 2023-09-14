@@ -9,7 +9,13 @@ const StatePage = async ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const state = searchParams.state;
-  const stateCode = states.abbr(searchParams.state) as string;
+  if (state === undefined || state.length == 0) {
+    throw new Error("State is undefined");
+  }
+
+  const stateCode = states.abbr(searchParams.state);
+
+  console.log(stateCode);
 
   const nationalParks = await axios.get(
     "https://developer.nps.gov/api/v1/parks",
