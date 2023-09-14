@@ -14,8 +14,6 @@ export default async function VisitedParksPage() {
       },
     }
   );
-
-  console.log(visitedParks.data);
   return (
     <>
       <h1 className="text-3xl font-semibold mb-4 text-white">Visited Parks</h1>
