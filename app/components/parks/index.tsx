@@ -1,24 +1,41 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface ParksProps {
   parks: any[];
 }
 
 const Parks: React.FC<ParksProps> = ({ parks }) => {
-  if (!localStorage.getItem("visited")) {
-    localStorage.setItem("visited", JSON.stringify([]));
-  }
+  const [visited, setVisited] = useState<string[]>([]);
 
-  const visited = JSON.parse(localStorage.getItem("visited")!);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storageVisited = localStorage.getItem("visited");
+
+      if (!storageVisited) {
+        localStorage.setItem("visited", JSON.stringify([]));
+      } else {
+        setVisited(JSON.parse(storageVisited));
+      }
+    }
+  }, []);
 
   const isParkVisited = (parkId: string) => {
     return visited.includes(parkId);
   };
 
-  const setVisited = (parkId: string) => {
-    localStorage.setItem("visited", JSON.stringify([...visited, parkId]));
+  const handleSetVisited = (parkId: string) => {
+    let newVisited: string[];
+
+    if (visited.includes(parkId)) {
+      newVisited = visited.filter((id) => id !== parkId);
+    } else {
+      newVisited = [...visited, parkId];
+    }
+    setVisited(newVisited);
+    localStorage.setItem("visited", JSON.stringify(newVisited));
   };
 
   return (
@@ -31,7 +48,9 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
             </h2>
             <button
               className="flex-shrink-0"
-              onClick={() => setVisited(park.id)}
+              onClick={() => {
+                handleSetVisited(park.id);
+              }}
             >
               <Image
                 src={
