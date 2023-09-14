@@ -9,10 +9,6 @@ const StatePage = async ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const state = searchParams.state;
-  if (state === undefined || state.length == 0) {
-    throw new Error("State is undefined");
-  }
-
   const stateCode = states.abbr(searchParams.state);
 
   console.log(stateCode);
@@ -29,6 +25,10 @@ const StatePage = async ({
       },
     }
   );
+
+  if (!state) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
