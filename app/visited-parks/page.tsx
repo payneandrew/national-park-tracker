@@ -10,7 +10,7 @@ export default async function VisitedParksPage() {
       },
       params: {
         api_key: process.env.NP_API_KEY,
-        parkCode: "abli",
+        parkCode: ["abli", "acad", "agfo"].toString(),
       },
     }
   );

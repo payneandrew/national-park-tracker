@@ -1,4 +1,3 @@
-import { ParkResponse } from "@/types/parks";
 import axios from "axios";
 import Head from "next/head";
 import Parks from "../components/parks";
@@ -12,11 +11,15 @@ const StatePage = async ({
   const state = searchParams.state;
   const stateCode = states.abbr(searchParams.state);
 
-  const getParkByState = async (stateCode: string): Promise<ParkResponse> => {
+  const getParkByState = async (stateCode: string) => {
     const allParks = await axios
-      .get(`http://localhost:3000/api/parks`, {
+      .get("https://developer.nps.gov/api/v1/parks", {
+        headers: {
+          Accept: "application/json",
+        },
         params: {
-          stateCode: stateCode,
+          api_key: process.env.NP_API_KEY,
+          stateCode,
         },
       })
       .then((resp) => {
