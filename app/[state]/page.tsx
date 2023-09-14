@@ -11,28 +11,6 @@ const StatePage = async ({
   const state = searchParams.state;
   const stateCode = states.abbr(searchParams.state);
 
-  // const getParkByState = async (stateCode: string) => {
-  //   const allParks = await axios
-  //     .get("https://developer.nps.gov/api/v1/parks", {
-  //       headers: {
-  //         Accept: "application/json",
-  //       },
-  //       params: {
-  //         api_key: process.env.NP_API_KEY,
-  //         stateCode,
-  //       },
-  //     })
-  //     .then((resp) => {
-  //       return resp.data;
-  //     })
-  //     .catch(async (err) => {
-  //       return err;
-  //     });
-  //   return allParks;
-  // };
-
-  // const nationalParks = await getParkByState(stateCode);
-
   const nationalParks = await axios.get(
     "https://developer.nps.gov/api/v1/parks",
     {
@@ -41,7 +19,7 @@ const StatePage = async ({
       },
       params: {
         api_key: process.env.NP_API_KEY,
-        stateCode: "VA",
+        stateCode: stateCode,
       },
     }
   );
