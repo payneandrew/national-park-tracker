@@ -31,10 +31,10 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
 
     if (visited.includes(parkCode)) {
       newVisited = visited.filter((id) => id !== parkCode);
-      alert("Park removed from visited list!");
+      alert("Park removed from visited list.");
     } else {
       newVisited = [...visited, parkCode];
-      alert("Park added to visited list.");
+      alert("Park added to visited list!");
     }
     setVisited(newVisited);
     localStorage.setItem("visited", JSON.stringify(newVisited));
