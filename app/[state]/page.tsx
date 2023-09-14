@@ -9,7 +9,7 @@ const StatePage = async ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const state = searchParams.state;
-  const stateCode = states.abbr(searchParams.state);
+  const stateCode = states.abbr(searchParams.state) as string;
 
   const nationalParks = await axios.get(
     "https://developer.nps.gov/api/v1/parks",
