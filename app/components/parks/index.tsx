@@ -49,6 +49,11 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
               {park.fullName}
             </h2>
             <button
+              title={
+                isParkVisited(park.parkCode)
+                  ? "Click to remove park from your list of visited parks."
+                  : "Click to add park to your list of visited parks."
+              }
               className="flex-shrink-0"
               onClick={() => {
                 handleSetVisited(park.parkCode);
@@ -63,19 +68,23 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
                 alt={isParkVisited(park.parkCode) ? "Visited" : "Not Visited"}
                 width={50}
                 height={50}
+                className="cursor-pointer transform transition-transform duration-200 hover:scale-125"
               />
             </button>
           </div>
 
-          <p className="text-gray-700">{park.description}</p>
-          {park.images[0] && (
-            <Image
-              src={park.images[0].url}
-              alt={park.images[0].altText}
-              width={100}
-              height={100}
-            />
-          )}
+          <div className="flex flex-col items-center justify-center relative">
+            <p className="text-gray-700">{park.description}</p>
+            {park.images[0] && (
+              <Image
+                src={park.images[0].url}
+                alt={park.images[0].altText}
+                width={400}
+                height={400}
+                className="object-contain"
+              />
+            )}
+          </div>
         </div>
       ))}
     </div>

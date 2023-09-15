@@ -10,7 +10,8 @@ const StatePage = async ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const state = searchParams?.state;
-  const stateCode = state && states.abbr(searchParams.state);
+  console.log("state", state);
+  const stateCode = state ? states.abbr(searchParams.state) : "VA";
 
   console.log(stateCode);
 

@@ -7,20 +7,18 @@ export default function Page() {
       <h1 className="text-3xl font-semibold mb-4 text-white">
         Explore Parks by State
       </h1>
-      <main className="flex min-h-screen flex-col justify-between p-24">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+      <main className="flex min-h-screen flex-col justify-between p-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {USStates.map((state) => (
-            <div
+            <Link
               key={state}
-              className="rounded overflow-hidden shadow-lg p-4 bg-wood-trees"
+              href={{ pathname: `/${state}`, query: { state: `${state}` } }}
+              className="rounded overflow-hidden shadow-lg p-4 bg-wood-trees cursor-pointer transform transition-transform duration-200 hover:scale-105"
             >
-              <Link
-                href={{ pathname: `/${state}`, query: { state: `${state}` } }}
-                className="font-bold text-xl mb-2 text-white hover:text-green-600 text-bold"
-              >
+              <p className="font-bold text-xl mb-2 text-white text-bold">
                 {state}
-              </Link>
-            </div>
+              </p>
+            </Link>
           ))}
         </div>
       </main>
