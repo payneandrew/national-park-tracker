@@ -1,26 +1,18 @@
-import axios from "axios";
-import Head from "next/head";
-import Parks from "../components/parks";
-const states = require("us-state-converter");
-export const dynamic = "force-dynamic";
+import axios from 'axios';
+import Head from 'next/head';
+import Parks from '../components/parks';
+const states = require('us-state-converter');
+export const dynamic = 'force-dynamic';
 
-const StatePage = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
-  const state = searchParams?.state;
-  const stateCode = state ? states.abbr(searchParams.state) : "VA";
-
-  if (!state || !stateCode) {
-    return <div>Loading...</div>;
-  }
+const StatePage = async ({ params }: { params: { state: string } }) => {
+  const state = params.state;
+  const stateCode = state ? states.abbr(state) : 'VA';
 
   const { data: nationalParks } = await axios.get(
-    "https://developer.nps.gov/api/v1/parks",
+    'https://developer.nps.gov/api/v1/parks',
     {
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
       },
       params: {
         api_key: process.env.NP_API_KEY,

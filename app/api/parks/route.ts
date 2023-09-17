@@ -6,6 +6,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const stateCode = searchParams.get("stateCode");
+    const parkCode = searchParams.get("parkCode");
     const response = await axios.get("https://developer.nps.gov/api/v1/parks", {
       headers: {
         Accept: "application/json",
@@ -13,6 +14,7 @@ export async function GET(request: Request) {
       params: {
         api_key: process.env.NP_API_KEY,
         stateCode,
+        parkCode,
       },
     });
 
