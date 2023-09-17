@@ -10,16 +10,13 @@ const StatePage = async ({
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
   const state = searchParams?.state;
-  console.log("state", state);
   const stateCode = state ? states.abbr(searchParams.state) : "VA";
-
-  console.log(stateCode);
 
   if (!state || !stateCode) {
     return <div>Loading...</div>;
   }
 
-  const nationalParks = await axios.get(
+  const { data: nationalParks } = await axios.get(
     "https://developer.nps.gov/api/v1/parks",
     {
       headers: {
@@ -44,7 +41,7 @@ const StatePage = async ({
 
       <div className="container mx-auto mt-8">
         <h1 className="text-3xl font-semibold mb-4 text-white">{`${state} Parks`}</h1>
-        {nationalParks && <Parks parks={nationalParks.data.data} />}
+        {nationalParks && <Parks parks={nationalParks.data} />}
       </div>
     </div>
   );

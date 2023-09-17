@@ -1,10 +1,12 @@
 "use client";
 
+import { ParkDetail } from "@/nps-api/parks/types";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface ParksProps {
-  parks: any[];
+  parks: ParkDetail[];
 }
 
 const Parks: React.FC<ParksProps> = ({ parks }) => {
@@ -40,14 +42,19 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
     localStorage.setItem("visited", JSON.stringify(newVisited));
   };
 
+  const router = useRouter();
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {parks.map((park) => (
         <div key={park.id} className="bg-white p-4 rounded-lg shadow-md">
           <div className="flex justify-between items-start">
-            <h2 className="text-xl font-semibold mb-2 text-rocks-canyons">
-              {park.fullName}
-            </h2>
+            <button
+              onClick={() => router.push(`/park-detail/${park.parkCode}`)}
+            >
+              <h2 className="text-xl font-semibold mb-2 text-rocks-canyons">
+                {park.fullName}
+              </h2>
+            </button>
             <button
               title={
                 isParkVisited(park.parkCode)
