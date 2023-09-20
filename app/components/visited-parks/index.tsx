@@ -1,12 +1,11 @@
 'use client';
 
-import { ParkDetail } from '@/nps-api/parks/types';
+import Loading from '@/app/loading';
+import { ParkResponse } from '@/nps-api/parks/types';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
 const VisitedParks: React.FC = () => {
-  const [visitedParks, setVisitedParks] = useState<ParkDetail[]>([]);
-
   const getStoredVisitedParkCodes = () => {
     if (typeof window !== 'undefined') {
       const storageVisited = localStorage.getItem('visited');
@@ -18,28 +17,20 @@ const VisitedParks: React.FC = () => {
   };
 
   const storageVisitedParksCodes = getStoredVisitedParkCodes();
+  const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-  useEffect(() => {
-    if (storageVisitedParksCodes) {
-      axios
-        .get('http://localhost:3000/api/parks', {
-          headers: {
-            Accept: 'application/json',
-          },
-          params: {
-            parkCode: storageVisitedParksCodes
-              ? storageVisitedParksCodes.join(',')
-              : '',
-          },
-        })
-        .then(({ data }) => setVisitedParks(data.data))
-        .catch((error) => console.error(error));
-    }
-  }, [storageVisitedParksCodes]);
+  const { data, error, isLoading } = useSWR<ParkResponse>(
+    `http://localhost:3000/api/parks?parkCode=${
+      storageVisitedParksCodes ? storageVisitedParksCodes.join(',') : ''
+    }`,
+    fetcher
+  );
+
+  const visitedParks = data?.data || [];
 
   return (
     <div className=" flex items-center justify-center">
-      {visitedParks.length > 0 ? (
+      {!isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {visitedParks.map((park) => (
             <div key={park.id} className="bg-white p-4 rounded-lg shadow-md">
@@ -52,10 +43,9 @@ const VisitedParks: React.FC = () => {
           ))}
         </div>
       ) : (
-        <h2 className="text-xl font-bold text-rocks-canyons">
-          You havent selected any parks yet!
-        </h2>
+        <Loading />
       )}
+      {error && <div>There was an error loading the parks.</div>}
     </div>
   );
 };

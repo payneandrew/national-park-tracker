@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import "./globals.css";
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "National Parks Tracker",
-  description: "Track the national parks you have visited.",
+  title: 'National Parks Tracker',
+  description: 'Track the national parks you have visited.',
 };
 
 export default function RootLayout({
@@ -24,27 +25,28 @@ export default function RootLayout({
                   alt="National Park Service Logo"
                   width={100}
                   height={100}
+                  priority={true}
                 />
-                <a href="/" className="text-white text-2xl font-semibold">
+                <Link href="/" className="text-white text-2xl font-semibold">
                   National Parks
-                </a>
+                </Link>
               </div>
               <ul className="flex space-x-4">
                 <li>
-                  <a
+                  <Link
                     href="/"
                     className="text-white hover:text-green-600 text-bold"
                   >
                     Explore Parks
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="/visited-parks"
                     className="text-white hover:text-green-600 text-bold"
                   >
                     Visited Parks
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

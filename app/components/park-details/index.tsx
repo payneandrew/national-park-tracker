@@ -1,5 +1,3 @@
-'use client';
-
 import { ParkDetail } from '@/nps-api/parks/types';
 import Link from 'next/link';
 
