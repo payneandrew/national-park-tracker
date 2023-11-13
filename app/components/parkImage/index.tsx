@@ -1,9 +1,9 @@
 'use client';
 
-import Loading from '@/app/loading';
 import { ParkImage } from '@/nps-api/parks/types';
 import Image from 'next/image';
 import { useState } from 'react';
+import Loading from '../loading';
 
 interface ParkImageProps {
   image: ParkImage;
@@ -15,8 +15,12 @@ const ParkImage: React.FC<ParkImageProps> = ({ image, width, height }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <div className="flex items-center justify-center">
-      {isLoaded ? null : <Loading />}
+    <div className="relative">
+      {!isLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Loading />
+        </div>
+      )}
       <Image
         src={image.url}
         alt={image.altText}
