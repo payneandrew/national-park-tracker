@@ -82,12 +82,12 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
 
           <div className="flex flex-col items-center justify-center relative">
             <p className="text-gray-700">{park.description}</p>
-            {park.images && (
+            {park.images && park.images.length > 0 && (
               <Image
                 src={park.images[0].url}
                 alt={park.images[0].altText}
-                width={400}
-                height={400}
+                width={300}
+                height={300}
                 className="object-contain"
               />
             )}

@@ -1,5 +1,6 @@
 import { ParkDetail } from '@/nps-api/parks/types';
 import Link from 'next/link';
+import Slideshow from '../slideshow';
 
 interface ParkDetailsProps {
   park: ParkDetail;
@@ -43,6 +44,9 @@ const ParkDetails: React.FC<ParkDetailsProps> = ({ park }) => {
             </div>
           ))}
         </>
+      )}
+      {park.images && park.images.length > 0 && (
+        <Slideshow images={park.images} />
       )}
     </div>
   );
