@@ -20,7 +20,7 @@ const VisitedParks: React.FC = () => {
   const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
   const { data, error, isLoading } = useSWR<ParkResponse>(
-    `http://localhost:3000/api/parks?parkCode=${
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/parks?parkCode=${
       storageVisitedParksCodes ? storageVisitedParksCodes.join(',') : ''
     }`,
     fetcher
