@@ -1,9 +1,9 @@
 'use client';
 
 import { Images } from '@/nps-api/parks/types';
-import Image from 'next/image';
 import { useState } from 'react';
 import Button from '../button';
+import ParkImage from '../parkImage';
 
 interface SlideshowProps {
   images: Images;
@@ -28,13 +28,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ images }) => {
   return (
     <div className="flex justify-center items-center bg-gray-200">
       <Button onClick={prevImage}>Prev</Button>
-      <Image
-        className="object-contain"
-        src={images[currentIndex].url}
-        alt={images[currentIndex].altText}
-        width={800}
-        height={800}
-      />
+      <ParkImage width={800} height={800} image={images[currentIndex]} />
       <Button onClick={nextImage}>Next</Button>
     </div>
   );

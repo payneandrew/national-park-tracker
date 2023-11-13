@@ -4,6 +4,7 @@ import { ParkDetail } from '@/nps-api/parks/types';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import ParkImage from '../parkImage';
 
 interface ParksProps {
   parks: ParkDetail[];
@@ -40,6 +41,12 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
     }
     setVisited(newVisited);
     localStorage.setItem('visited', JSON.stringify(newVisited));
+  };
+
+  const [loadingImage, setLoadingImage] = useState(true);
+
+  const handleImageLoad = () => {
+    setLoadingImage(false);
   };
 
   const router = useRouter();
@@ -83,13 +90,7 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
           <div className="flex flex-col items-center justify-center relative">
             <p className="text-gray-700">{park.description}</p>
             {park.images && park.images.length > 0 && (
-              <Image
-                src={park.images[0].url}
-                alt={park.images[0].altText}
-                width={300}
-                height={300}
-                className="object-contain"
-              />
+              <ParkImage width={300} height={300} image={park.images[0]} />
             )}
           </div>
         </div>
