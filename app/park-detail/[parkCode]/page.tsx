@@ -21,7 +21,6 @@ export default async function ParkDetailPage({
     },
   });
   const park: ParkDetail = data.data[0];
-  //console.log('park from page.ts', park);
 
   return (
     <div>
@@ -31,8 +30,8 @@ export default async function ParkDetailPage({
           name={`${park.fullName}`}
           content="Explore national parks and plan your visits."
         />
-        <ParkDetails park={park} />
       </Head>
+      <ParkDetails park={park} />
     </div>
   );
 }

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { ParkDetail } from "@/nps-api/parks/types";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { ParkDetail } from '@/nps-api/parks/types';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 interface ParksProps {
   parks: ParkDetail[];
@@ -13,11 +13,11 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
   const [visited, setVisited] = useState<string[]>([]);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storageVisited = localStorage.getItem("visited");
+    if (typeof window !== 'undefined') {
+      const storageVisited = localStorage.getItem('visited');
 
       if (!storageVisited) {
-        localStorage.setItem("visited", JSON.stringify([]));
+        localStorage.setItem('visited', JSON.stringify([]));
       } else {
         setVisited(JSON.parse(storageVisited));
       }
@@ -33,13 +33,13 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
 
     if (visited.includes(parkCode)) {
       newVisited = visited.filter((id) => id !== parkCode);
-      alert("Park removed from visited list.");
+      alert('Park removed from visited list.');
     } else {
       newVisited = [...visited, parkCode];
-      alert("Park added to visited list!");
+      alert('Park added to visited list!');
     }
     setVisited(newVisited);
-    localStorage.setItem("visited", JSON.stringify(newVisited));
+    localStorage.setItem('visited', JSON.stringify(newVisited));
   };
 
   const router = useRouter();
@@ -58,8 +58,8 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
             <button
               title={
                 isParkVisited(park.parkCode)
-                  ? "Click to remove park from your list of visited parks."
-                  : "Click to add park to your list of visited parks."
+                  ? 'Click to remove park from your list of visited parks.'
+                  : 'Click to add park to your list of visited parks.'
               }
               className="flex-shrink-0"
               onClick={() => {
@@ -69,10 +69,10 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
               <Image
                 src={
                   isParkVisited(park.parkCode)
-                    ? "/icons/checked.png"
-                    : "/icons/unchecked.png"
+                    ? '/icons/checked.png'
+                    : '/icons/unchecked.png'
                 }
-                alt={isParkVisited(park.parkCode) ? "Visited" : "Not Visited"}
+                alt={isParkVisited(park.parkCode) ? 'Visited' : 'Not Visited'}
                 width={50}
                 height={50}
                 className="cursor-pointer transform transition-transform duration-200 hover:scale-125"
@@ -82,7 +82,7 @@ const Parks: React.FC<ParksProps> = ({ parks }) => {
 
           <div className="flex flex-col items-center justify-center relative">
             <p className="text-gray-700">{park.description}</p>
-            {park.images[0] && (
+            {park.images && (
               <Image
                 src={park.images[0].url}
                 alt={park.images[0].altText}

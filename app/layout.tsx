@@ -19,7 +19,7 @@ export default function RootLayout({
         <div className="bg-nature-bg text-nature-text font-sans min-h-screen">
           <nav className="bg-wood-trees p-4">
             <div className="container mx-auto flex items-center justify-between">
-              <div className="flex items-center">
+              <Link href="/" className="flex items-center">
                 <Image
                   src="/logos/US-NationalParkService-Logo.svg"
                   alt="National Park Service Logo"
@@ -27,10 +27,10 @@ export default function RootLayout({
                   height={100}
                   priority={true}
                 />
-                <Link href="/" className="text-white text-2xl font-semibold">
+                <h1 className="text-white text-3xl font-semibold">
                   National Parks
-                </Link>
-              </div>
+                </h1>
+              </Link>
               <ul className="flex space-x-4">
                 <li>
                   <Link

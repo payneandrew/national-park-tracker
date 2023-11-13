@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const ParkDetail = z.object({
   states: z.string(),
@@ -23,15 +23,17 @@ export const ParkDetail = z.object({
   entrancePasses: z.array(z.unknown()),
   parkCode: z.string(),
   designation: z.string(),
-  images: z.array(
-    z.object({
-      credit: z.string(),
-      altText: z.string(),
-      title: z.string(),
-      caption: z.string(),
-      url: z.string(),
-    })
-  ),
+  images: z
+    .array(
+      z.object({
+        credit: z.string(),
+        altText: z.string(),
+        title: z.string(),
+        caption: z.string(),
+        url: z.string(),
+      })
+    )
+    .optional(),
   fullName: z.string(),
   latLong: z.string(),
   id: z.string(),

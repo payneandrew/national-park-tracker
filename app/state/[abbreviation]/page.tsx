@@ -1,12 +1,10 @@
 import axios from 'axios';
 import Head from 'next/head';
-import Parks from '../components/parks';
-const states = require('us-state-converter');
+import Parks from '../../components/parks';
 export const dynamic = 'force-dynamic';
 
-const StatePage = async ({ params }: { params: { state: string } }) => {
-  const state = params.state;
-  const stateCode = state ? states.abbr(state) : 'VA';
+const StatePage = async ({ params }: { params: { abbreviation: string } }) => {
+  const stateCode = params.abbreviation;
 
   const { data: nationalParks } = await axios.get(
     'https://developer.nps.gov/api/v1/parks',
