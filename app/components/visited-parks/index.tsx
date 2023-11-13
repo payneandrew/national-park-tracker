@@ -3,6 +3,7 @@
 import Loading from '@/app/loading';
 import { ParkResponse } from '@/nps-api/parks/types';
 import axios from 'axios';
+import Image from 'next/image';
 import useSWR from 'swr';
 
 const VisitedParks: React.FC = () => {
@@ -38,6 +39,12 @@ const VisitedParks: React.FC = () => {
                 <h2 className="text-xl font-semibold mb-2 text-rocks-canyons">
                   {park.fullName}
                 </h2>
+                <Image
+                  src="/icons/checked.png"
+                  alt="Visited"
+                  width={50}
+                  height={50}
+                />
               </div>
             </div>
           ))}

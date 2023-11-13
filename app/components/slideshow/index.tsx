@@ -3,7 +3,7 @@
 import { Images } from '@/nps-api/parks/types';
 import { useState } from 'react';
 import Button from '../button';
-import ParkImage from '../parkImage';
+import ParkImage from '../park-image';
 
 interface SlideshowProps {
   images: Images;

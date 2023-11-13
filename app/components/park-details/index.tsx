@@ -1,5 +1,8 @@
+'use client';
+
 import { ParkDetail } from '@/nps-api/parks/types';
 import Link from 'next/link';
+import MapContainer from '../map-container';
 import Slideshow from '../slideshow';
 
 interface ParkDetailsProps {
@@ -9,6 +12,12 @@ interface ParkDetailsProps {
 const ParkDetails: React.FC<ParkDetailsProps> = ({ park }) => {
   return (
     <div className="p-4 md:p-8 bg-white shadow-md rounded-lg flex flex-col gap-4">
+      <MapContainer
+        markerPosition={{
+          lat: Number(park.latitude),
+          lng: Number(park.longitude),
+        }}
+      />
       <h1 className="text-xl font-semibold mb-2 text-rocks-canyons">
         {park.fullName}
       </h1>
