@@ -2,8 +2,8 @@
 
 import { ParkDetail } from '@/nps-api/parks/types';
 import Link from 'next/link';
+import ImageGrid from '../image-grid';
 import MapContainer from '../map-container';
-import Slideshow from '../slideshow';
 
 interface ParkDetailsProps {
   park: ParkDetail;
@@ -42,8 +42,11 @@ const ParkDetails: React.FC<ParkDetailsProps> = ({ park }) => {
             Entrance Fees
           </h2>
           {park.entranceFees.map((fee, index) => (
-            <div className="mb-4 p-4 bg-gray-100 rounded-lg" key={index}>
-              <h3 className="font-bold text-gray-700">{fee.title}</h3>
+            <div
+              className="mb-4 p-4 bg-gray-100 rounded-lg text-gray-700"
+              key={index}
+            >
+              <h3 className="font-bold ">{fee.title}</h3>
               <p>
                 <strong>Cost:</strong> ${fee.cost}
               </p>
@@ -55,7 +58,7 @@ const ParkDetails: React.FC<ParkDetailsProps> = ({ park }) => {
         </>
       )}
       {park.images && park.images.length > 0 && (
-        <Slideshow images={park.images} />
+        <ImageGrid images={park.images} />
       )}
     </div>
   );

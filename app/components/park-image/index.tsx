@@ -9,9 +9,15 @@ interface ParkImageProps {
   image: ParkImage;
   width: number;
   height: number;
+  className?: string;
 }
 
-const ParkImage: React.FC<ParkImageProps> = ({ image, width, height }) => {
+const ParkImage: React.FC<ParkImageProps> = ({
+  image,
+  width,
+  height,
+  className,
+}) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
