@@ -1,95 +1,130 @@
 'use client';
 
-import { ParkDetail } from '@/nps-api/parks/types';
+import { useParksState } from '@/app/hooks/use-parks-state';
+import axios from 'axios';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useState } from 'react';
+import Error from '../error';
+import Loading from '../loading';
 import ParkImage from '../park-image';
+import Toast from '../toast';
 
 interface ParksProps {
-  parks: ParkDetail[];
+  stateCode: string;
 }
 
-const Parks: React.FC<ParksProps> = ({ parks }) => {
-  const [visited, setVisited] = useState<string[]>([]);
+const Parks: React.FC<ParksProps> = ({ stateCode }) => {
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [showError, setShowError] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storageVisited = localStorage.getItem('visited');
+  const { data: parks, mutate, isLoading } = useParksState(stateCode);
 
-      if (!storageVisited) {
-        localStorage.setItem('visited', JSON.stringify([]));
+  const handleSetVisited = async (parkCode: string) => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/visited-parks/${parkCode}`
+      );
+
+      if (response.status === 201) {
+        setShowSuccessToast(true);
       } else {
-        setVisited(JSON.parse(storageVisited));
+        setShowError(true);
       }
+    } catch (error) {
+      console.error(error);
+      setShowError(true);
     }
-  }, []);
-
-  const isParkVisited = (parkCode: string) => {
-    return visited.includes(parkCode);
   };
 
-  const handleSetVisited = (parkCode: string) => {
-    let newVisited: string[];
+  const handleSetRemoved = async (parkCode: string) => {
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/visited-parks/${parkCode}`
+      );
 
-    if (visited.includes(parkCode)) {
-      newVisited = visited.filter((id) => id !== parkCode);
-      alert('Park removed from visited list.');
-    } else {
-      newVisited = [...visited, parkCode];
-      alert('Park added to visited list!');
+      if (response.status === 200) {
+        setShowSuccessToast(true);
+      } else {
+        setShowError(true);
+      }
+    } catch (error) {
+      console.error(error);
+      setShowError(true);
     }
-    setVisited(newVisited);
-    localStorage.setItem('visited', JSON.stringify(newVisited));
   };
 
-  const router = useRouter();
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {parks.map((park) => (
-        <div key={park.id} className="bg-white p-4 rounded-lg shadow-md">
-          <div className="flex justify-between items-start">
-            <button
-              onClick={() => router.push(`/park-detail/${park.parkCode}`)}
-            >
-              <h2 className="text-xl font-semibold mb-2 text-rocks-canyons">
-                {park.fullName}
-              </h2>
-            </button>
-            <button
-              title={
-                isParkVisited(park.parkCode)
-                  ? 'Click to remove park from your list of visited parks.'
-                  : 'Click to add park to your list of visited parks.'
-              }
-              className="flex-shrink-0"
-              onClick={() => {
-                handleSetVisited(park.parkCode);
-              }}
-            >
-              <Image
-                src={
-                  isParkVisited(park.parkCode)
-                    ? '/icons/checked.png'
-                    : '/icons/unchecked.png'
-                }
-                alt={isParkVisited(park.parkCode) ? 'Visited' : 'Not Visited'}
-                width={50}
-                height={50}
-                className="cursor-pointer transform transition-transform duration-200 hover:scale-125"
-              />
-            </button>
-          </div>
-
-          <div className="flex flex-col items-center justify-center relative">
-            <p className="text-gray-700">{park.description}</p>
-            {park.images && park.images.length > 0 && (
-              <ParkImage width={300} height={300} image={park.images[0]} />
-            )}
-          </div>
+    <>
+      {isLoading && (
+        <div className="flex items-center justify-center h-screen">
+          <Loading />
         </div>
-      ))}
-    </div>
+      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {parks &&
+          parks.data.map((park) => (
+            <div key={park.id} className="bg-white p-4 rounded-lg shadow-md">
+              <div className="flex justify-between items-start">
+                <Link href={`/park-detail/${park.parkCode}`}>
+                  <h2 className="text-xl font-semibold mb-2 text-rocks-canyons">
+                    {park.fullName}
+                  </h2>
+                </Link>
+                <button
+                  title={
+                    park.visited
+                      ? 'Click to remove park from your list of visited parks.'
+                      : 'Click to add park to your list of visited parks.'
+                  }
+                  className="flex-shrink-0"
+                  onClick={() => {
+                    park.visited
+                      ? handleSetRemoved(park.parkCode)
+                      : handleSetVisited(park.parkCode);
+                    mutate();
+                  }}
+                >
+                  <Image
+                    src={
+                      park.visited
+                        ? '/icons/checked.png'
+                        : '/icons/unchecked.png'
+                    }
+                    alt={park.visited ? 'Visited' : 'Not Visited'}
+                    width={50}
+                    height={50}
+                    className="cursor-pointer transform transition-transform duration-200 hover:scale-125"
+                  />
+                </button>
+              </div>
+
+              <div className="flex flex-col items-center justify-center relative">
+                <p className="text-gray-700">{park.description}</p>
+                {park.images && park.images.length > 0 && (
+                  <ParkImage width={300} height={300} image={park.images[0]} />
+                )}
+              </div>
+              {showSuccessToast && (
+                <Toast
+                  message={
+                    park.visited
+                      ? 'Parked removed from the list'
+                      : 'Parked added to the list!'
+                  }
+                  onClose={() => setShowSuccessToast(false)}
+                />
+              )}
+              {showError && (
+                <Error
+                  message="There was an unexpected error"
+                  onClose={() => setShowError(false)}
+                />
+              )}
+            </div>
+          ))}
+      </div>
+    </>
   );
 };
 

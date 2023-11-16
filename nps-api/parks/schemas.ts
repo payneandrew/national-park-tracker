@@ -39,6 +39,7 @@ export const ParkDetail = z.object({
   id: z.string(),
   directionsUrl: z.string(),
   description: z.string(),
+  visited: z.string(),
 });
 
 export const ParkData = z.array(ParkDetail);

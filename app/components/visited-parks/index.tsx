@@ -1,29 +1,14 @@
 'use client';
 
 import Loading from '@/app/loading';
+import { fetcher } from '@/app/utils/api';
 import { ParkResponse } from '@/nps-api/parks/types';
-import axios from 'axios';
 import Image from 'next/image';
 import useSWR from 'swr';
 
 const VisitedParks: React.FC = () => {
-  const getStoredVisitedParkCodes = () => {
-    if (typeof window !== 'undefined') {
-      const storageVisited = localStorage.getItem('visited');
-      if (storageVisited) {
-        return JSON.parse(storageVisited);
-      }
-    }
-    return null;
-  };
-
-  const storageVisitedParksCodes = getStoredVisitedParkCodes();
-  const fetcher = (url: string) => axios.get(url).then((res) => res.data);
-
   const { data, error, isLoading } = useSWR<ParkResponse>(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/parks?parkCode=${
-      storageVisitedParksCodes ? storageVisitedParksCodes.join(',') : ''
-    }`,
+    `${process.env.NEXT_PUBLIC_API_URL}/visited-parks`,
     fetcher
   );
 
