@@ -19,7 +19,7 @@ const MapContainer: React.FC<MapContainerProps> = ({ markerPosition }) => {
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
       <GoogleMap
         mapContainerStyle={mapStyles}
-        zoom={14}
+        zoom={12}
         center={markerPosition}
         mapTypeId={'terrain'}
       >
