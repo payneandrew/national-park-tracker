@@ -25,7 +25,7 @@ export const ParkDetail = z.object({
   topics: z.array(z.unknown()),
   name: z.string(),
   latitude: z.string(),
-  activities: z.array(z.unknown()),
+  activities: z.array(z.object({ id: z.string(), name: z.string() })),
   operatingHours: z.array(z.unknown()),
   url: z.string(),
   longitude: z.string(),
