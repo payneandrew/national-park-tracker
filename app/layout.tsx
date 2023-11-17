@@ -55,7 +55,7 @@ export default function RootLayout({
           <main className="container mx-auto p-4">{children}</main>
 
           <footer className="bg-wood-trees text-white text-center p-4">
-            &copy; {new Date().getFullYear()} National Parks Tracker
+            {new Date().getFullYear()} National Parks Tracker by Andrew Payne
           </footer>
         </div>
       </body>
