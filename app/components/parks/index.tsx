@@ -15,7 +15,8 @@ interface ParksProps {
 }
 
 const Parks: React.FC<ParksProps> = ({ stateCode }) => {
-  const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [showVisitedToast, setShowVisitedToast] = useState(false);
+  const [showRemovedToast, setShowRemovedToast] = useState(false);
   const [showError, setShowError] = useState(false);
 
   const { data: parks, mutate, isLoading } = useParksState(stateCode);
@@ -27,7 +28,7 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
       );
 
       if (response.status === 201) {
-        setShowSuccessToast(true);
+        setShowVisitedToast(true);
       } else {
         setShowError(true);
       }
@@ -44,7 +45,7 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
       );
 
       if (response.status === 200) {
-        setShowSuccessToast(true);
+        setShowRemovedToast(true);
       } else {
         setShowError(true);
       }
@@ -105,14 +106,16 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
                   <ParkImage width={300} height={300} image={park.images[0]} />
                 )}
               </div>
-              {showSuccessToast && (
+              {showVisitedToast && (
                 <Toast
-                  message={
-                    park.visited
-                      ? 'Parked removed from the list'
-                      : 'Parked added to the list!'
-                  }
-                  onClose={() => setShowSuccessToast(false)}
+                  message="Parked added to the list!"
+                  onClose={() => setShowVisitedToast(false)}
+                />
+              )}
+              {showRemovedToast && (
+                <Toast
+                  message="Parked removed from the list"
+                  onClose={() => setShowRemovedToast(false)}
                 />
               )}
               {showError && (
