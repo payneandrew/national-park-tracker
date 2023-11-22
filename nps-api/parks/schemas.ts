@@ -6,6 +6,7 @@ export const Image = z.object({
   title: z.string(),
   caption: z.string(),
   url: z.string(),
+  id: z.number().optional(),
 });
 
 export const Images = z.array(Image);
@@ -39,7 +40,9 @@ export const ParkDetail = z.object({
   id: z.string(),
   directionsUrl: z.string(),
   description: z.string(),
-  visited: z.string(),
+  visited: z.boolean(),
+  fees: z.array(z.unknown()),
+  relevanceScore: z.number().optional(),
 });
 
 export const ParkData = z.array(ParkDetail);

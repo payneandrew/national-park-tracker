@@ -85,6 +85,7 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
                       : handleSetVisited(park.parkCode);
                     mutate();
                   }}
+                  data-cy="add-remove-park-button"
                 >
                   <Image
                     src={
