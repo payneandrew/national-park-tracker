@@ -30,6 +30,8 @@ declare global {
     interface Chainable {
       mount: typeof mount;
       findByDataCy: (selector: string) => Chainable<JQuery<HTMLElement>>;
+      interceptVisitedParksPostEndpoint: (statusCode: number) => Chainable;
+      interceptVisitedParksDeleteEndpoint: (statusCode: number) => Chainable;
     }
   }
 }

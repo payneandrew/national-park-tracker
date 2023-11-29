@@ -19,6 +19,7 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
   const [showRemovedToast, setShowRemovedToast] = useState(false);
   const [showError, setShowError] = useState(false);
 
+  // this thing sets the parks
   const { data: parks, mutate, isLoading } = useParksState(stateCode);
 
   const handleSetVisited = async (parkCode: string) => {
