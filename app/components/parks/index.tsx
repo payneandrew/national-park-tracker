@@ -19,7 +19,6 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
   const [showRemovedToast, setShowRemovedToast] = useState(false);
   const [showError, setShowError] = useState(false);
 
-  // this thing sets the parks
   const { data: parks, mutate, isLoading } = useParksState(stateCode);
 
   const handleSetVisited = async (parkCode: string) => {
@@ -104,7 +103,7 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
 
               <div className="flex flex-col items-center justify-center relative">
                 <p className="text-gray-700">{park.description}</p>
-                {park.images && park.images.length > 0 && (
+                {park.images && park.images[0] && (
                   <ParkImage width={300} height={300} image={park.images[0]} />
                 )}
               </div>

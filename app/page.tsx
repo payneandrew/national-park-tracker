@@ -17,7 +17,7 @@ export default function Page() {
             <Link
               key={stateCode}
               href={{ pathname: `/state/${stateCode}` }}
-              className="rounded overflow-hidden shadow-lg p-4 bg-wood-trees cursor-pointer transform transition-transform duration-200 hover:scale-105"
+              className="rounded overflow-hidden shadow-lg p-4 bg-wood-trees transform transition-transform duration-200 hover:scale-105"
             >
               <p className="font-bold text-xl mb-2 text-white text-bold">
                 {stateName}
