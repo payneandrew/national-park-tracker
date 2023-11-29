@@ -35,7 +35,7 @@ export default function RootLayout({
                 <li>
                   <Link
                     href="/"
-                    className="text-white hover:text-green-600 text-bold"
+                    className="hover:bg-national-park-green rounded p-2 m-2 transform transition-transform duration-200 hover:scale-105 text-white shadow-lg"
                   >
                     Explore Parks
                   </Link>
@@ -43,7 +43,7 @@ export default function RootLayout({
                 <li>
                   <Link
                     href="/visited-parks"
-                    className="text-white hover:text-green-600 text-bold"
+                    className="hover:bg-national-park-green rounded p-2 m-2 transform transition-transform duration-200 hover:scale-105 text-white shadow-lg"
                   >
                     Visited Parks
                   </Link>
