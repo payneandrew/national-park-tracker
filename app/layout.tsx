@@ -41,14 +41,16 @@ export default function RootLayout({
                     Explore Parks
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/visited-parks"
-                    className="hover:bg-national-park-green rounded p-2 m-2 transform transition-transform duration-200 hover:scale-105 text-white shadow-lg"
-                  >
-                    Visited Parks
-                  </Link>
-                </li>
+                {process.env.NEXT_PUBLIC_VISITED_PARKS_ENABLED === 'true' && (
+                  <li>
+                    <Link
+                      href="/visited-parks"
+                      className="hover:bg-national-park-green rounded p-2 m-2 transform transition-transform duration-200 hover:scale-105 text-white shadow-lg"
+                    >
+                      Visited Parks
+                    </Link>
+                  </li>
+                )}
                 <li>
                   <Link
                     href="/survey/activities"

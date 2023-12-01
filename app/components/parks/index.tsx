@@ -72,33 +72,35 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
                     {park.fullName}
                   </h2>
                 </Link>
-                <button
-                  title={
-                    park.visited
-                      ? 'Click to remove park from your list of visited parks.'
-                      : 'Click to add park to your list of visited parks.'
-                  }
-                  className="flex-shrink-0"
-                  onClick={() => {
-                    park.visited
-                      ? handleSetRemoved(park.parkCode)
-                      : handleSetVisited(park.parkCode);
-                    mutate();
-                  }}
-                  data-cy="add-remove-park-button"
-                >
-                  <Image
-                    src={
+                {process.env.NEXT_PUBLIC_VISITED_PARKS_ENABLED === 'true' && (
+                  <button
+                    title={
                       park.visited
-                        ? '/icons/checked.png'
-                        : '/icons/unchecked.png'
+                        ? 'Click to remove park from your list of visited parks.'
+                        : 'Click to add park to your list of visited parks.'
                     }
-                    alt={park.visited ? 'Visited' : 'Not Visited'}
-                    width={50}
-                    height={50}
-                    className="cursor-pointer transform transition-transform duration-200 hover:scale-125"
-                  />
-                </button>
+                    className="flex-shrink-0"
+                    onClick={() => {
+                      park.visited
+                        ? handleSetRemoved(park.parkCode)
+                        : handleSetVisited(park.parkCode);
+                      mutate();
+                    }}
+                    data-cy="add-remove-park-button"
+                  >
+                    <Image
+                      src={
+                        park.visited
+                          ? '/icons/checked.png'
+                          : '/icons/unchecked.png'
+                      }
+                      alt={park.visited ? 'Visited' : 'Not Visited'}
+                      width={50}
+                      height={50}
+                      className="cursor-pointer transform transition-transform duration-200 hover:scale-125"
+                    />
+                  </button>
+                )}
               </div>
 
               <div className="flex flex-col items-center justify-center relative">
