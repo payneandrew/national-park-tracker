@@ -1,11 +1,13 @@
 'use client';
 
-import { Activities } from '@/nps-api/parks/types';
+import { Activities, Amenities } from '@/nps-api/parks/types';
 import { createContext, useState } from 'react';
 
 type SurveyContextType = {
   chosenActivities: Activities[];
   chooseActivity: (activity: Activities) => void;
+  chosenAmenities: Amenities[];
+  chooseAmenity: (amenity: Amenities) => void;
 };
 
 export const SurveyContext = createContext<SurveyContextType | undefined>(
@@ -18,15 +20,29 @@ type SurveyProviderProps = {
 
 export const SurveyProvider: React.FC<SurveyProviderProps> = ({ children }) => {
   const [chosenActivities, setChosenActivities] = useState<Activities[]>([]);
+  const [chosenAmenities, setChosenAmenities] = useState<Amenities[]>([]);
 
   console.log(chosenActivities);
+
+  console.log(chosenAmenities);
 
   const chooseActivity = (activity: Activities) => {
     setChosenActivities((activities) => [...activities, activity]);
   };
 
+  const chooseAmenity = (amenity: Amenities) => {
+    setChosenAmenities((amenities) => [...amenities, amenity]);
+  };
+
   return (
-    <SurveyContext.Provider value={{ chosenActivities, chooseActivity }}>
+    <SurveyContext.Provider
+      value={{
+        chosenActivities,
+        chooseActivity,
+        chosenAmenities,
+        chooseAmenity,
+      }}
+    >
       {children}
     </SurveyContext.Provider>
   );
