@@ -16,7 +16,7 @@ export default async function ParkDetailPage({
       Accept: 'application/json',
     },
     params: {
-      api_key: process.env.NP_API_KEY,
+      api_key: process.env.NEXT_PUBLIC_NP_API_KEY,
       parkCode: parkCode,
     },
   });

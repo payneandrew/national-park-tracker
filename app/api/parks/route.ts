@@ -12,7 +12,7 @@ export async function GET(request: Request) {
         Accept: 'application/json',
       },
       params: {
-        api_key: process.env.NP_API_KEY,
+        api_key: process.env.NEXT_PUBLIC_NP_API_KEY,
         stateCode,
         parkCode,
       },

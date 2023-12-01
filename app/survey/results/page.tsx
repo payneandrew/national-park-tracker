@@ -8,14 +8,12 @@ export default async function ResultsPage() {
       Accept: 'application/json',
     },
     params: {
-      api_key: process.env.NP_API_KEY,
+      api_key: process.env.NEXT_PUBLIC_NP_API_KEY,
       limit: 500,
     },
   });
 
   const parks: ParkData = data.data;
-
-  console.log(parks);
 
   return (
     <>

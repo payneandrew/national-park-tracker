@@ -11,7 +11,7 @@ export default async function AmenitiesPage() {
         Accept: 'application/json',
       },
       params: {
-        api_key: process.env.NP_API_KEY,
+        api_key: process.env.NEXT_PUBLIC_NP_API_KEY,
       },
     }
   );
