@@ -11,7 +11,7 @@ export default function Page() {
       <h1 className="text-3xl font-semibold mb-4 text-white">
         Explore Parks by State
       </h1>
-      <main className="flex min-h-screen flex-col justify-between p-12">
+      <div className="flex min-h-screen flex-col justify-between">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {states.map(({ stateCode, stateName }) => (
             <Link
@@ -25,7 +25,7 @@ export default function Page() {
             </Link>
           ))}
         </div>
-      </main>
+      </div>
     </>
   );
 }

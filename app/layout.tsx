@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { SurveyProvider } from './context/survey-context';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -48,11 +49,21 @@ export default function RootLayout({
                     Visited Parks
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href="/survey/activities"
+                    className="hover:bg-national-park-green rounded p-2 m-2 transform transition-transform duration-200 hover:scale-105 text-white shadow-lg"
+                  >
+                    Find the right park for you
+                  </Link>
+                </li>
               </ul>
             </div>
           </nav>
 
-          <main className="container mx-auto p-4">{children}</main>
+          <main className="container mx-auto p-10">
+            <SurveyProvider>{children}</SurveyProvider>
+          </main>
 
           <footer className="bg-wood-trees text-white text-center p-4">
             {new Date().getFullYear()} National Parks Tracker by Andrew Payne
