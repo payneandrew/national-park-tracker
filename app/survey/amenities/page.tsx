@@ -12,6 +12,7 @@ export default async function AmenitiesPage() {
       },
       params: {
         api_key: process.env.NEXT_PUBLIC_NP_API_KEY,
+        limit: 500,
       },
     }
   );
@@ -20,11 +21,11 @@ export default async function AmenitiesPage() {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold mb-4 text-white">
+      <h1 className="text-3xl font-semibold text-white">
         Select the amenities that are important to you
       </h1>
-      <div className="flex min-h-screen flex-col justify-between">
-        <div className="flex justify-end">
+      <div className="flex min-h-screen flex-col justify-between gap-4">
+        <div className="flex justify-between">
           <Link
             href={{ pathname: '/survey/activities' }}
             className="bg-white rounded p-2 m-2  transform transition-transform duration-200 hover:scale-105 text-black shadow-lg"

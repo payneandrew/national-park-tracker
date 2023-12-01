@@ -27,7 +27,14 @@ export const SurveyProvider: React.FC<SurveyProviderProps> = ({ children }) => {
   console.log(chosenAmenities);
 
   const chooseActivity = (activity: Activities) => {
-    setChosenActivities((activities) => [...activities, activity]);
+    setChosenActivities((activities) => {
+      const isActivityChosen = activities.find((act) => act.id === activity.id);
+      if (isActivityChosen) {
+        return activities.filter((act) => act.id !== activity.id);
+      } else {
+        return [...activities, activity];
+      }
+    });
   };
 
   const chooseAmenity = (amenity: Amenities) => {

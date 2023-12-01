@@ -12,6 +12,7 @@ export default async function ActivitiesPage() {
       },
       params: {
         api_key: process.env.NEXT_PUBLIC_NP_API_KEY,
+        limit: 500,
       },
     }
   );
