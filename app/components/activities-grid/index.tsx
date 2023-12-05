@@ -9,6 +9,7 @@ interface ActivitiesProps {
 
 const ActivitiesGrid: React.FC<ActivitiesProps> = ({ activities }) => {
   const { chooseActivity, chosenActivities } = useSurveyContext();
+  console.log('ActivitiesGrid rendering', chosenActivities);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -16,11 +17,12 @@ const ActivitiesGrid: React.FC<ActivitiesProps> = ({ activities }) => {
         const isActivityChosen = !!chosenActivities.find(
           (chosenActivity) => chosenActivity.id === activity.id
         );
+
         return (
           <button
             key={activity.id}
-            className={`rounded overflow-hidden shadow-lg p-4 bg-wood-trees transform transition-transform duration-200 hover:scale-105 ${
-              isActivityChosen ? 'bg-green-500' : ''
+            className={`rounded overflow-hidden shadow-lg p-4 transform transition-transform duration-200 hover:scale-105 ${
+              isActivityChosen ? 'bg-green-500' : 'bg-wood-trees'
             }`}
             onClick={() => chooseActivity(activity)}
           >
