@@ -51,14 +51,16 @@ export default function RootLayout({
                     </Link>
                   </li>
                 )}
-                <li>
-                  <Link
-                    href="/survey/activities"
-                    className="hover:bg-national-park-green rounded p-2 m-2 transform transition-transform duration-200 hover:scale-105 text-white shadow-lg"
-                  >
-                    Find the right park for you
-                  </Link>
-                </li>
+                {process.env.NEXT_PUBLIC_SURVEY_ENABLED === 'true' && (
+                  <li>
+                    <Link
+                      href="/survey/activities"
+                      className="hover:bg-national-park-green rounded p-2 m-2 transform transition-transform duration-200 hover:scale-105 text-white shadow-lg"
+                    >
+                      Find the right park for you
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
           </nav>
