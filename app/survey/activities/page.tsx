@@ -33,7 +33,8 @@ export default async function ActivitiesPage() {
             Skip
           </Link>
           <Link
-            href={{ pathname: '/survey/amenities' }}
+            // href={{ pathname: '/survey/amenities' }}
+            href={{ pathname: '/survey/results' }}
             className="bg-white rounded p-2 m-2 transform transition-transform duration-200 hover:scale-105 text-black shadow-lg"
           >
             Next

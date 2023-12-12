@@ -9,7 +9,6 @@ interface ActivitiesProps {
 
 const ActivitiesGrid: React.FC<ActivitiesProps> = ({ activities }) => {
   const { chooseActivity, chosenActivities } = useSurveyContext();
-  console.log('ActivitiesGrid rendering', chosenActivities);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -1,6 +1,5 @@
 'use client';
 
-import { useAmenitiesParks } from '@/app/hooks/use-amenities-parks';
 import { useSurveyContext } from '@/app/hooks/use-survey-context';
 import { USStates } from '@/mocks/states';
 import { Activities, ParkData } from '@/nps-api/parks/types';
@@ -11,13 +10,13 @@ interface SurveyResultsProps {
 }
 
 const SurveyResults: React.FC<SurveyResultsProps> = ({ parks }) => {
-  const { chosenAmenities, chosenActivities } = useSurveyContext();
+  const { chosenActivities } = useSurveyContext();
 
-  const { data: parksWithAmenities } = useAmenitiesParks(
-    chosenAmenities.map((amenity) => amenity.id)
-  );
+  // const { data: parksWithAmenities } = useAmenitiesParks(
+  //   chosenAmenities.map((amenity) => amenity.id)
+  // );
 
-  console.log('parksWithAmenities', parksWithAmenities);
+  // console.log('parksWithAmenities', parksWithAmenities);
 
   const filterParksByActivities = (
     parks: ParkData,
@@ -33,11 +32,9 @@ const SurveyResults: React.FC<SurveyResultsProps> = ({ parks }) => {
 
   const recommendedParks = filterParksByActivities(parks, chosenActivities);
 
-  console.log('recommendedParks', recommendedParks);
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-      {recommendedParks.length > 0 && !chosenAmenities && !chosenActivities ? (
+      {recommendedParks.length > 0 ? (
         recommendedParks.map((park) => {
           const stateCodesArray = park.states.split(',');
           const stateNames = stateCodesArray
