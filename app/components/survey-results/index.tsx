@@ -19,16 +19,21 @@ const SurveyResults: React.FC<SurveyResultsProps> = ({ parks }) => {
 
   console.log('parksWithAmenities', parksWithAmenities);
 
-  function filterParksByActivities(parks: ParkData, activities: Activities[]) {
+  const filterParksByActivities = (
+    parks: ParkData,
+    activities: Activities[]
+  ) => {
     const selectedActivityIds = activities.map((activity) => activity.id);
     return parks.filter((park) =>
       park.activities.some((activity) =>
         selectedActivityIds.includes(activity.id)
       )
     );
-  }
+  };
 
   const recommendedParks = filterParksByActivities(parks, chosenActivities);
+
+  console.log('recommendedParks', recommendedParks);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">

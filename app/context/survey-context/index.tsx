@@ -39,8 +39,8 @@ export const SurveyProvider: React.FC<SurveyProviderProps> = ({ children }) => {
 
   const chooseAmenity = (amenity: Amenities) => {
     setChosenAmenities((amenities) => {
-      const isActivityChosen = amenities.find((amen) => amen.id === amenity.id);
-      if (isActivityChosen) {
+      const isAmenityChosen = amenities.find((amen) => amen.id === amenity.id);
+      if (isAmenityChosen) {
         return amenities.filter((amen) => amen.id !== amenity.id);
       } else {
         return [...amenities, amenity];
