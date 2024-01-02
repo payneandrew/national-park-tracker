@@ -1,7 +1,5 @@
-import ParkDetails from '@/app/components/park-details';
 import { ParkDetail } from '@/nps-api/parks/types';
 import axios from 'axios';
-import Head from 'next/head';
 export const dynamic = 'force-dynamic';
 
 export default async function ParkDetailPage({
@@ -11,27 +9,32 @@ export default async function ParkDetailPage({
 }) {
   const parkCode = params.parkCode;
 
-  const { data } = await axios.get('https://developer.nps.gov/api/v1/parks', {
-    headers: {
-      Accept: 'application/json',
-    },
-    params: {
-      api_key: process.env.NEXT_PUBLIC_NP_API_KEY,
-      parkCode: parkCode,
-    },
-  });
-  const park: ParkDetail = data.data[0];
-
-  return (
-    <div>
-      <Head>
-        <title>{`${park.fullName}`}</title>
-        <meta
-          name={`${park.fullName}`}
-          content="Explore national parks and plan your visits."
-        />
-      </Head>
-      <ParkDetails park={park} />
-    </div>
+  const { data: parkInfo } = await axios.get(
+    'https://developer.nps.gov/api/v1/parks',
+    {
+      headers: {
+        Accept: 'application/json',
+      },
+      params: {
+        api_key: process.env.NEXT_PUBLIC_NP_API_KEY,
+        parkCode: parkCode,
+      },
+    }
   );
+
+  const { data: campgrounds } = await axios.get(
+    'https://developer.nps.gov/api/v1/campgrounds',
+    {
+      headers: {
+        Accept: 'application/json',
+      },
+      params: {
+        api_key: process.env.NEXT_PUBLIC_NP_API_KEY,
+        parkCode: parkCode,
+      },
+    }
+  );
+  const park: ParkDetail = parkInfo.data[0];
+
+  return <></>;
 }

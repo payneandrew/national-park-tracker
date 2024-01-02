@@ -1,17 +1,37 @@
 'use client';
 
+import ImageGrid from '@/app/components/image-grid';
+import MapContainer from '@/app/components/map-container';
 import { ParkDetail } from '@/nps-api/parks/types';
+import axios from 'axios';
 import Link from 'next/link';
-import ImageGrid from '../image-grid';
-import MapContainer from '../map-container';
+import { useEffect, useState } from 'react';
 
-interface ParkDetailsProps {
-  park: ParkDetail;
-}
+interface DetailsProps {}
 
-const ParkDetails: React.FC<ParkDetailsProps> = ({ park }) => {
+const Details: React.FC<DetailsProps> = () => {
+  const [park, setPark] = useState<ParkDetail>();
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get(
+        'https://developer.nps.gov/api/v1/parks',
+        {
+          headers: {
+            Accept: 'application/json',
+          },
+          params: {
+            api_key: process.env.NEXT_PUBLIC_NP_API_KEY,
+            parkCode: parkCode,
+          },
+        }
+      );
+      setPark(data.data);
+    })();
+  }, []);
+
   return (
-    <div className="p-4 md:p-8 bg-white shadow-md rounded-lg flex flex-col gap-4">
+    <>
       <h1 className="text-2xl font-semibold mb-2 text-rocks-canyons">
         {park.fullName}
       </h1>
@@ -76,8 +96,8 @@ const ParkDetails: React.FC<ParkDetailsProps> = ({ park }) => {
       {park.images && park.images.length > 0 && (
         <ImageGrid images={park.images} />
       )}
-    </div>
+    </>
   );
 };
 
-export default ParkDetails;
+export default Details;
