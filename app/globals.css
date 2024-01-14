@@ -18,7 +18,10 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  /* Use national park-inspired colors for the background */
   background: linear-gradient(to bottom, #78b445, #2e7d32)
     rgb(var(--background-start-rgb));
+  .landing-page-background {
+    background-image: url('/blue-ridge-parkway.jpeg');
+    background-size: cover;
+  }
 }

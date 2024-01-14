@@ -34,7 +34,7 @@ export default function RootLayout({
               <ul className="flex space-x-4">
                 <li>
                   <Link
-                    href="/"
+                    href="/states"
                     className="hover:bg-national-park-green rounded p-2 m-2 transform transition-transform duration-200 hover:scale-105 text-white shadow-lg"
                   >
                     Explore Parks
@@ -52,7 +52,7 @@ export default function RootLayout({
             </div>
           </nav>
 
-          <main className="container mx-auto p-4">{children}</main>
+          <main className="container">{children}</main>
 
           <footer className="bg-wood-trees text-white text-center p-4">
             {new Date().getFullYear()} National Parks Tracker by Andrew Payne
