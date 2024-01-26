@@ -5,12 +5,9 @@ import Details from '@/app/components/park-detail';
 import { useParksParkcode } from '@/app/hooks/use-parks-parkcode';
 import TabGroup from '../../components/tab-group';
 
-interface ParkDetailsProps {
-  children: React.ReactNode;
-}
-
-const ParkDetailsPage: React.FC<ParkDetailsProps> = ({ children }) => {
-  const { data: park } = useParksParkcode('alag');
+const ParkDetailsPage = ({ params }: { params: { parkCode: string } }) => {
+  const parkCode = params.parkCode;
+  const { data: park } = useParksParkcode(parkCode);
   const parkData = park?.data[0];
 
   const tabs = [
@@ -25,7 +22,6 @@ const ParkDetailsPage: React.FC<ParkDetailsProps> = ({ children }) => {
       {parkData && (
         <div className="p-4 md:p-8 bg-white shadow-md rounded-lg flex flex-col gap-4">
           <TabGroup tabs={tabs} />
-          {children}
         </div>
       )}
     </>
