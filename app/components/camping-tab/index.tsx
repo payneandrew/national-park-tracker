@@ -5,7 +5,7 @@ import { ParkDetail } from '@/nps-api/parks/types';
 
 interface CampingInfoProps {
   park: ParkDetail;
-  campgrounds: any[];
+  campgrounds?: any[];
 }
 
 const CampingInfo: React.FC<CampingInfoProps> = ({ park, campgrounds }) => {

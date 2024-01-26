@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 interface Tab {
   name: string;
-  url: string;
+  component: ReactNode;
 }
 
 interface TabsProps {
