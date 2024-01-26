@@ -16,10 +16,12 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
         {park.fullName}
       </h1>
       <MapContainer
-        markerPosition={{
-          lat: Number(park.latitude),
-          lng: Number(park.longitude),
-        }}
+        markerPositions={[
+          {
+            lat: Number(park.latitude),
+            lng: Number(park.longitude),
+          },
+        ]}
       />
       <Link href={park.directionsUrl} className="underline">
         Get Directions
