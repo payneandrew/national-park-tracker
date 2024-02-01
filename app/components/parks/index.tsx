@@ -35,7 +35,12 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
     return visited.includes(parkCode);
   };
 
-  const handleSetVisited = (parkCode: string) => {
+  const handleSetVisited = (
+    parkCode: string,
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.stopPropagation();
+    event.preventDefault();
     let newVisited: string[];
 
     if (visited.includes(parkCode)) {
@@ -76,8 +81,8 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
                         : 'Click to add park to your list of visited parks.'
                     }
                     className="flex-shrink-0"
-                    onClick={() => {
-                      handleSetVisited(park.parkCode);
+                    onClick={(event) => {
+                      handleSetVisited(park.parkCode, event);
                     }}
                     data-cy="add-remove-park-button"
                   >
