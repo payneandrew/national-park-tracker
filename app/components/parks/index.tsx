@@ -1,11 +1,9 @@
 'use client';
 
 import { useParksState } from '@/app/hooks/use-parks-state';
-import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-import Error from '../error';
+import { useEffect, useState } from 'react';
 import Loading from '../loading';
 import ParkImage from '../park-image';
 import Toast from '../toast';
@@ -17,42 +15,72 @@ interface ParksProps {
 const Parks: React.FC<ParksProps> = ({ stateCode }) => {
   const [showVisitedToast, setShowVisitedToast] = useState(false);
   const [showRemovedToast, setShowRemovedToast] = useState(false);
-  const [showError, setShowError] = useState(false);
+  const [visited, setVisited] = useState<string[]>([]);
 
-  const { data: parks, mutate, isLoading } = useParksState(stateCode);
+  const { data: parks, isLoading } = useParksState(stateCode);
 
-  const handleSetVisited = async (parkCode: string) => {
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/visited-parks/${parkCode}`
-      );
+  // const handleSetVisited = async (parkCode: string) => {
+  //   try {
+  //     const response = await axios.post(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/visited-parks/${parkCode}`
+  //     );
 
-      if (response.status === 201) {
-        setShowVisitedToast(true);
+  //     if (response.status === 201) {
+  //       setShowVisitedToast(true);
+  //     } else {
+  //       setShowError(true);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     setShowError(true);
+  //   }
+  // };
+
+  // const handleSetRemoved = async (parkCode: string) => {
+  //   try {
+  //     const response = await axios.delete(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/visited-parks/${parkCode}`
+  //     );
+
+  //     if (response.status === 200) {
+  //       setShowRemovedToast(true);
+  //     } else {
+  //       setShowError(true);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     setShowError(true);
+  //   }
+  // };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storageVisited = localStorage.getItem('visited');
+
+      if (!storageVisited) {
+        localStorage.setItem('visited', JSON.stringify([]));
       } else {
-        setShowError(true);
+        setVisited(JSON.parse(storageVisited));
       }
-    } catch (error) {
-      console.error(error);
-      setShowError(true);
     }
+  }, []);
+
+  const isParkVisited = (parkCode: string) => {
+    return visited.includes(parkCode);
   };
 
-  const handleSetRemoved = async (parkCode: string) => {
-    try {
-      const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/visited-parks/${parkCode}`
-      );
+  const handleSetVisited = (parkCode: string) => {
+    let newVisited: string[];
 
-      if (response.status === 200) {
-        setShowRemovedToast(true);
-      } else {
-        setShowError(true);
-      }
-    } catch (error) {
-      console.error(error);
-      setShowError(true);
+    if (visited.includes(parkCode)) {
+      newVisited = visited.filter((id) => id !== parkCode);
+      setShowRemovedToast(true);
+    } else {
+      newVisited = [...visited, parkCode];
+      setShowVisitedToast(true);
     }
+    setVisited(newVisited);
+    localStorage.setItem('visited', JSON.stringify(newVisited));
   };
 
   return (
@@ -81,16 +109,13 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
                     }
                     className="flex-shrink-0"
                     onClick={() => {
-                      park.visited
-                        ? handleSetRemoved(park.parkCode)
-                        : handleSetVisited(park.parkCode);
-                      mutate();
+                      handleSetVisited(park.parkCode);
                     }}
                     data-cy="add-remove-park-button"
                   >
                     <Image
                       src={
-                        park.visited
+                        isParkVisited(park.parkCode)
                           ? '/icons/checked.png'
                           : '/icons/unchecked.png'
                       }
@@ -119,12 +144,6 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
                 <Toast
                   message="Parked removed from the list"
                   onClose={() => setShowRemovedToast(false)}
-                />
-              )}
-              {showError && (
-                <Error
-                  message="There was an unexpected error"
-                  onClose={() => setShowError(false)}
                 />
               )}
             </div>
