@@ -22,13 +22,14 @@ const CampingInfo: React.FC<CampingInfoProps> = ({ park, campgrounds }) => {
       <h1 className="text-2xl font-semibold mb-2 text-rocks-canyons">
         {`${park.fullName} Campgrounds`}
       </h1>
-
       {campgrounds.length > 0 && (
         <MapContainer markerPositions={markerPositions} zoom={9} />
       )}
 
       {campgrounds.length === 0 ? (
-        <p>No campgrounds here yet!</p>
+        <p className="flex items-center justify-center my-12">
+          No campgrounds here yet!
+        </p>
       ) : (
         campgrounds.map((campground) => (
           <div key={campground.id} className="py-2">
