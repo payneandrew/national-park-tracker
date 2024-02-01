@@ -1,25 +1,27 @@
 'use client';
 
+import ImageGrid from '@/app/components/image-grid';
+import MapContainer from '@/app/components/map-container';
 import { ParkDetail } from '@/nps-api/parks/types';
 import Link from 'next/link';
-import ImageGrid from '../image-grid';
-import MapContainer from '../map-container';
 
-interface ParkDetailsProps {
+interface DetailsProps {
   park: ParkDetail;
 }
 
-const ParkDetails: React.FC<ParkDetailsProps> = ({ park }) => {
+const Details: React.FC<DetailsProps> = ({ park }) => {
   return (
-    <div className="p-4 md:p-8 bg-white shadow-md rounded-lg flex flex-col gap-4">
+    <>
       <h1 className="text-2xl font-semibold mb-2 text-rocks-canyons">
         {park.fullName}
       </h1>
       <MapContainer
-        markerPosition={{
-          lat: Number(park.latitude),
-          lng: Number(park.longitude),
-        }}
+        markerPositions={[
+          {
+            lat: Number(park.latitude),
+            lng: Number(park.longitude),
+          },
+        ]}
       />
       <Link href={park.directionsUrl} className="underline">
         Get Directions
@@ -76,8 +78,8 @@ const ParkDetails: React.FC<ParkDetailsProps> = ({ park }) => {
       {park.images && park.images.length > 0 && (
         <ImageGrid images={park.images} />
       )}
-    </div>
+    </>
   );
 };
 
-export default ParkDetails;
+export default Details;

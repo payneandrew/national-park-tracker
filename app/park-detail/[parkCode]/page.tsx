@@ -1,37 +1,40 @@
-import ParkDetails from '@/app/components/park-details';
-import { ParkDetail } from '@/nps-api/parks/types';
-import axios from 'axios';
-import Head from 'next/head';
-export const dynamic = 'force-dynamic';
+'use client';
 
-export default async function ParkDetailPage({
-  params,
-}: {
-  params: { parkCode: string };
-}) {
+import CampingInfo from '@/app/components/camping-tab';
+import Details from '@/app/components/park-detail';
+import { useCampgroundsPark } from '@/app/hooks/use-campgrounds-park';
+import { useParksParkcode } from '@/app/hooks/use-parks-parkcode';
+import TabGroup from '../../components/tab-group';
+
+const ParkDetailsPage = ({ params }: { params: { parkCode: string } }) => {
   const parkCode = params.parkCode;
+  const { data: park } = useParksParkcode(parkCode);
+  const parkData = park?.data[0];
 
-  const { data } = await axios.get('https://developer.nps.gov/api/v1/parks', {
-    headers: {
-      Accept: 'application/json',
-    },
-    params: {
-      api_key: process.env.NEXT_PUBLIC_NP_API_KEY,
-      parkCode: parkCode,
-    },
-  });
-  const park: ParkDetail = data.data[0];
+  const { data: campgrounds } = useCampgroundsPark(parkCode);
+  const campgroundsData = campgrounds?.data;
 
+  const tabs = [
+    {
+      name: 'Details',
+      component: <Details park={parkData!} />,
+    },
+    {
+      name: 'Camping',
+      component: (
+        <CampingInfo park={parkData!} campgrounds={campgroundsData!} />
+      ),
+    },
+  ];
   return (
-    <div>
-      <Head>
-        <title>{`${park.fullName}`}</title>
-        <meta
-          name={`${park.fullName}`}
-          content="Explore national parks and plan your visits."
-        />
-      </Head>
-      <ParkDetails park={park} />
-    </div>
+    <>
+      {parkData && campgroundsData && (
+        <div className="p-4 md:p-8 bg-white shadow-md rounded-lg flex flex-col gap-4">
+          <TabGroup tabs={tabs} />
+        </div>
+      )}
+    </>
   );
-}
+};
+
+export default ParkDetailsPage;
