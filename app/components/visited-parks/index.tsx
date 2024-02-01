@@ -7,8 +7,23 @@ import Image from 'next/image';
 import useSWR from 'swr';
 
 const VisitedParks: React.FC = () => {
+  const getStoredVisitedParkCodes = () => {
+    if (typeof window !== 'undefined') {
+      const storageVisited = localStorage.getItem('visited');
+      if (storageVisited) {
+        return JSON.parse(storageVisited);
+      }
+    }
+    return null;
+  };
+
+  const storageVisitedParksCodes = getStoredVisitedParkCodes();
   const { data, error, isLoading } = useSWR<ParkResponse>(
-    `${process.env.NEXT_PUBLIC_API_URL}/visited-parks`,
+    `https://developer.nps.gov/api/v1/parks?api_key=${
+      process.env.NEXT_PUBLIC_NP_API_KEY
+    }&parkCode=${
+      storageVisitedParksCodes ? storageVisitedParksCodes.join(',') : ''
+    }`,
     fetcher
   );
 
