@@ -19,40 +19,6 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
 
   const { data: parks, isLoading } = useParksState(stateCode);
 
-  // const handleSetVisited = async (parkCode: string) => {
-  //   try {
-  //     const response = await axios.post(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/visited-parks/${parkCode}`
-  //     );
-
-  //     if (response.status === 201) {
-  //       setShowVisitedToast(true);
-  //     } else {
-  //       setShowError(true);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     setShowError(true);
-  //   }
-  // };
-
-  // const handleSetRemoved = async (parkCode: string) => {
-  //   try {
-  //     const response = await axios.delete(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/visited-parks/${parkCode}`
-  //     );
-
-  //     if (response.status === 200) {
-  //       setShowRemovedToast(true);
-  //     } else {
-  //       setShowError(true);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     setShowError(true);
-  //   }
-  // };
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storageVisited = localStorage.getItem('visited');
@@ -90,16 +56,18 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
           <Loading />
         </div>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {parks &&
           parks.data.map((park) => (
-            <div key={park.id} className="bg-white p-4 rounded-lg shadow-md">
+            <Link
+              className="bg-white p-4 rounded-lg shadow-md"
+              key={park.id}
+              href={`/park-detail/${park.parkCode}`}
+            >
               <div className="flex justify-between items-start">
-                <Link href={`/park-detail/${park.parkCode}`}>
-                  <h2 className="text-xl font-semibold mb-2 text-rocks-canyons">
-                    {park.fullName}
-                  </h2>
-                </Link>
+                <h2 className="text-xl font-semibold mb-2 text-rocks-canyons">
+                  {park.fullName}
+                </h2>
                 {process.env.NEXT_PUBLIC_VISITED_PARKS_ENABLED === 'true' && (
                   <button
                     title={
@@ -146,7 +114,7 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
                   onClose={() => setShowRemovedToast(false)}
                 />
               )}
-            </div>
+            </Link>
           ))}
       </div>
     </>
