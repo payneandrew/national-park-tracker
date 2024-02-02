@@ -24,7 +24,7 @@ export default async function ActivitiesPage() {
       <h1 className="text-3xl font-semibold text-white">
         Select the activities that are important to you
       </h1>
-      <div className="flex min-h-screen flex-col justify-between gap-4">
+      <div className="flex min-h-screen flex-col gap-4">
         <div className="flex justify-end">
           <Link
             href={{ pathname: '/' }}
