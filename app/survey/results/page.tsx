@@ -21,16 +21,14 @@ export default async function ResultsPage() {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold mb-4 text-white">
-        These are parks you would enjoy visiting!
-      </h1>
-      <div className="flex min-h-screen flex-col justify-between">
-        <div className="flex justify-end">
+      <h1 className="text-3xl font-semibold text-white">Recommended Parks</h1>
+      <div className="flex min-h-screen flex-col">
+        <div className="flex justify-end py-4">
           <Link
             href={{ pathname: '/survey/activities' }}
             className="bg-white rounded p-2 m-2  transform transition-transform duration-200 hover:scale-105 text-black shadow-lg"
           >
-            Start Over
+            Back
           </Link>
         </div>
         <SurveyResults parks={parks} />

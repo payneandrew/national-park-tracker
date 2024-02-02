@@ -29,7 +29,7 @@ export default function RootLayout({
                   priority={true}
                 />
                 <h1 className="text-white text-3xl font-semibold">
-                  National Parks
+                  National Parks Tracker
                 </h1>
               </Link>
               <ul className="flex space-x-4">
@@ -69,8 +69,19 @@ export default function RootLayout({
             <SurveyProvider>{children}</SurveyProvider>
           </main>
 
-          <footer className="bg-wood-trees text-white text-center p-4">
-            {new Date().getFullYear()} National Parks Tracker by Andrew Payne
+          <footer className="bg-wood-trees text-white text-center p-4 flex justify-between">
+            <p>
+              {new Date().getFullYear()} National Parks Tracker by Andrew Payne
+            </p>
+            <p>
+              Made possible by the{' '}
+              <Link
+                href="https://www.nps.gov/subjects/developer/api-documentation.htm"
+                className="underline"
+              >
+                National Parks API
+              </Link>
+            </p>
           </footer>
         </div>
       </body>
