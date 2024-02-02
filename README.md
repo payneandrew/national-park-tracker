@@ -1,34 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# National Parks Tracker
+
+![National Park](public/home-screenshot.png)
+
+National Parks Tracker is a React and Next.js application that enables users to explore and keep track of their visits to national parks. The application provides information about various national parks, including details about camping facilities.
+
+## Features
+
+- **Park Directory:** Browse a comprehensive directory of national parks, each with its own dedicated page showcasing essential information.
+
+- **Visited Parks Tracker:** Keep track of the national parks you've visited by marking them as "visited" on their respective pages.
+
+- **Detailed Park Information:** Access detailed information about each national park, including camping facilities, entry requirements, and other relevant details.
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to get the National Parks Tracker up and running on your local machine:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/payneandrew/national-park-tracker.git
+   ```
+2. **Navigate to the Project Directory:**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   cd national-park-tracker
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Install Dependencies:**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+4. **Run the Application:**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The application will be accessible at http://localhost:3000 in your web browser.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Usage
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Explore Parks:**
+  - Navigate to the "Explore Parks" section to view a list of states.
+  - Click on the state to view a list of national parks in that state.
+  - Click on a park to view more detailed information.
+- **Track Visited Parks:**
+  - On each park's page, you can mark it as "visited" to keep track of the parks you've been to.
+- **View Camping Information:**
+  - Access camping information for each park, including facilities, reservation details, and more.
