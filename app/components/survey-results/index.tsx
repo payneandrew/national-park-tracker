@@ -1,7 +1,6 @@
 'use client';
 
 import { useSurveyContext } from '@/app/hooks/use-survey-context';
-import { USStates } from '@/mocks/states';
 import { Activities, ParkData } from '@/nps-api/parks/types';
 import Link from 'next/link';
 
@@ -33,33 +32,28 @@ const SurveyResults: React.FC<SurveyResultsProps> = ({ parks }) => {
   const recommendedParks = filterParksByActivities(parks, chosenActivities);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {recommendedParks.length > 0 ? (
         recommendedParks.map((park) => {
-          const stateCodesArray = park.states.split(',');
-          const stateNames = stateCodesArray
-            .map((code) => USStates[code.trim() as keyof typeof USStates])
-            .filter((name) => name) // remove any undefined names
-            .join(', ');
+          const backgroundImageStyle = park.images
+            ? {
+                backgroundImage: `url(${park.images[0].url})`,
+              }
+            : { backgroundColor: 'white' };
 
           return (
             <Link
-              className="mb-6 flex flex-col overflow-hidden rounded-lg shadow-lg"
+              className="pt-2 px-2 rounded-lg shadow-md"
               key={park.id}
               href={`/park-detail/${park.parkCode}`}
+              style={{
+                ...backgroundImageStyle,
+                backgroundSize: 'cover',
+                width: '300px',
+                height: '200px',
+              }}
             >
-              <div className="flex-1 bg-white p-6 flex flex-col justify-between">
-                <div className="flex-1">
-                  <>
-                    <p className="text-sm font-medium text-green-600">
-                      {stateNames}
-                    </p>
-                    <h3 className="mt-2 text-xl font-semibold text-gray-900">
-                      {park.fullName}
-                    </h3>
-                  </>
-                </div>
-              </div>
+              <h2 className="text-lg font-bold text-white">{park.fullName}</h2>
             </Link>
           );
         })
