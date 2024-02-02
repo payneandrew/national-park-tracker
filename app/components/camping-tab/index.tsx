@@ -15,11 +15,9 @@ const CampingInfo: React.FC<CampingInfoProps> = ({ park, campgrounds }) => {
     label: campground.name,
   }));
 
-  console.log('campgrounds', campgrounds);
-
   return (
     <>
-      <h1 className="text-2xl font-semibold mb-2 text-rocks-canyons">
+      <h1 className="text-3xl font-semibold mb-2 text-rocks-canyons">
         {`${park.fullName} Campgrounds`}
       </h1>
       {campgrounds.length > 0 && (

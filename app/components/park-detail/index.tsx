@@ -3,7 +3,6 @@
 import ImageGrid from '@/app/components/image-grid';
 import MapContainer from '@/app/components/map-container';
 import { ParkDetail } from '@/nps-api/parks/types';
-import Link from 'next/link';
 
 interface DetailsProps {
   park: ParkDetail;
@@ -11,8 +10,8 @@ interface DetailsProps {
 
 const Details: React.FC<DetailsProps> = ({ park }) => {
   return (
-    <>
-      <h1 className="text-2xl font-semibold mb-2 text-rocks-canyons">
+    <div className="flex flex-col gap-3">
+      <h1 className="text-3xl font-semibold mb-2 text-rocks-canyons">
         {park.fullName}
       </h1>
       <MapContainer
@@ -23,11 +22,6 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
           },
         ]}
       />
-      <Link href={park.directionsUrl} className="underline">
-        Get Directions
-      </Link>
-      <h2 className="text-lg font-semibold text-rocks-canyons">Directions</h2>
-      <p className="text-gray-700">{park.directionsInfo}</p>
       <h2 className="text-lg font-semibold text-rocks-canyons">Description</h2>
       <p className="text-gray-700">{park.description}</p>
 
@@ -75,10 +69,13 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
           ))}
         </>
       )}
+      <h2 className="text-lg font-semibold text-rocks-canyons">Directions</h2>
+      <p className="text-gray-700">{park.directionsInfo}</p>
+
       {park.images && park.images.length > 0 && (
         <ImageGrid images={park.images} />
       )}
-    </>
+    </div>
   );
 };
 
