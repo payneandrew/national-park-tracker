@@ -2,18 +2,30 @@
 
 import ImageGrid from '@/app/components/image-grid';
 import MapContainer from '@/app/components/map-container';
+import useVisitedParks from '@/app/hooks/use-visited-parks';
 import { ParkDetail } from '@/nps-api/parks/types';
+import AddRemoveButton from '../add-remove-button';
 
 interface DetailsProps {
   park: ParkDetail;
 }
 
 const Details: React.FC<DetailsProps> = ({ park }) => {
+  const { isParkVisited, toggleVisited } = useVisitedParks();
   return (
     <div className="flex flex-col gap-3">
-      <h1 className="text-3xl font-semibold mb-2 text-rocks-canyons">
-        {park.fullName}
-      </h1>
+      <div className="flex flex-row items-center gap-2">
+        <h1 className="text-3xl font-semibold text-rocks-canyons">
+          {park.fullName}
+        </h1>
+        {process.env.NEXT_PUBLIC_VISITED_PARKS_ENABLED === 'true' && (
+          <AddRemoveButton
+            park={park}
+            isParkVisited={isParkVisited}
+            toggleVisited={toggleVisited}
+          />
+        )}
+      </div>
       <MapContainer
         markerPositions={[
           {
@@ -24,12 +36,10 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
       />
       <h2 className="text-lg font-semibold text-rocks-canyons">Description</h2>
       <p className="text-gray-700">{park.description}</p>
-
       <h2 className="text-lg font-semibold text-rocks-canyons">
         Weather Information
       </h2>
       <p className="text-gray-700">{park.weatherInfo}</p>
-
       {park.activities && park.activities.length > 0 && (
         <>
           <h2 className="text-lg font-semibold text-rocks-canyons">
@@ -47,7 +57,6 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
           </div>
         </>
       )}
-
       {park.entranceFees && park.entranceFees.length > 0 && (
         <>
           <h2 className="text-xl font-semibold text-rocks-canyons">
@@ -71,7 +80,6 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
       )}
       <h2 className="text-lg font-semibold text-rocks-canyons">Directions</h2>
       <p className="text-gray-700">{park.directionsInfo}</p>
-
       {park.images && park.images.length > 0 && (
         <ImageGrid images={park.images} />
       )}

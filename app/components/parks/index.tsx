@@ -2,9 +2,9 @@
 
 import { useParksState } from '@/app/hooks/use-parks-state';
 import useVisitedParks from '@/app/hooks/use-visited-parks';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import AddRemoveButton from '../add-remove-button';
 import Loading from '../loading';
 import ParkImage from '../park-image';
 import Toast from '../toast';
@@ -39,30 +39,11 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
                   {park.fullName}
                 </h2>
                 {process.env.NEXT_PUBLIC_VISITED_PARKS_ENABLED === 'true' && (
-                  <button
-                    title={
-                      park.visited
-                        ? 'Click to remove park from your list of visited parks.'
-                        : 'Click to add park to your list of visited parks.'
-                    }
-                    className="flex-shrink-0"
-                    onClick={(event) => {
-                      toggleVisited(park.parkCode, event);
-                    }}
-                    data-cy="add-remove-park-button"
-                  >
-                    <Image
-                      src={
-                        isParkVisited(park.parkCode)
-                          ? '/icons/checked.png'
-                          : '/icons/unchecked.png'
-                      }
-                      alt={!!isParkVisited ? 'Visited' : 'Not Visited'}
-                      width={50}
-                      height={50}
-                      className="cursor-pointer transform transition-transform duration-200 hover:scale-125"
-                    />
-                  </button>
+                  <AddRemoveButton
+                    park={park}
+                    isParkVisited={isParkVisited}
+                    toggleVisited={toggleVisited}
+                  />
                 )}
               </div>
 

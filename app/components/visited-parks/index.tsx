@@ -1,13 +1,15 @@
 'use client';
 
+import useVisitedParks from '@/app/hooks/use-visited-parks';
 import Loading from '@/app/loading';
 import { fetcher } from '@/app/utils/api';
 import { ParkResponse } from '@/nps-api/parks/types';
-import Image from 'next/image';
 import Link from 'next/link';
 import useSWR from 'swr';
+import AddRemoveButton from '../add-remove-button';
 
 const VisitedParks: React.FC = () => {
+  const { isParkVisited, toggleVisited } = useVisitedParks();
   const getStoredVisitedParkCodes = () => {
     if (typeof window !== 'undefined') {
       const storageVisited = localStorage.getItem('visited');
@@ -56,13 +58,17 @@ const VisitedParks: React.FC = () => {
                   }}
                 >
                   <div className="absolute inset-0 bg-black opacity-40 hover:opacity-0 transition-opacity"></div>
+
                   <h2 className="text-lg font-bold text-white absolute top-4 left-4 z-10">
-                    <Image
-                      src="/icons/checked.png"
-                      alt="Visited"
-                      width={50}
-                      height={50}
-                    />
+                    {process.env.NEXT_PUBLIC_VISITED_PARKS_ENABLED ===
+                      'true' && (
+                      <AddRemoveButton
+                        park={park}
+                        isParkVisited={isParkVisited}
+                        toggleVisited={toggleVisited}
+                      />
+                    )}
+
                     {park.fullName}
                   </h2>
                 </Link>
