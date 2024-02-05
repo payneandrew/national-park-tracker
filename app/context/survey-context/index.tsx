@@ -22,10 +22,6 @@ export const SurveyProvider: React.FC<SurveyProviderProps> = ({ children }) => {
   const [chosenActivities, setChosenActivities] = useState<Activities[]>([]);
   const [chosenAmenities, setChosenAmenities] = useState<Amenities[]>([]);
 
-  console.log('chosenActivities', chosenActivities);
-
-  console.log('chosenAmenities', chosenAmenities);
-
   const chooseActivity = (activity: Activities) => {
     setChosenActivities((activities) => {
       const isActivityChosen = activities.find((act) => act.id === activity.id);

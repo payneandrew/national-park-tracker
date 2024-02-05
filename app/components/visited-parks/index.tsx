@@ -20,18 +20,21 @@ const VisitedParks: React.FC = () => {
     return null;
   };
 
-  const storageVisitedParksCodes = getStoredVisitedParkCodes();
+  const storageVisitedParksCodes: string[] | null = getStoredVisitedParkCodes();
+
+  const shouldFetchData =
+    storageVisitedParksCodes && storageVisitedParksCodes.length !== 0;
 
   const { data, error, isLoading } = useSWR<ParkResponse>(
-    `https://developer.nps.gov/api/v1/parks?api_key=${
-      process.env.NEXT_PUBLIC_NP_API_KEY
-    }&parkCode=${
-      storageVisitedParksCodes ? storageVisitedParksCodes.join(',') : ''
-    }`,
+    shouldFetchData
+      ? `https://developer.nps.gov/api/v1/parks?api_key=${
+          process.env.NEXT_PUBLIC_NP_API_KEY
+        }&parkCode=${storageVisitedParksCodes.join(',')}`
+      : null,
     fetcher
   );
 
-  const visitedParks = storageVisitedParksCodes ? data?.data : [];
+  const visitedParks = shouldFetchData ? data?.data : [];
 
   return (
     <div>
@@ -58,19 +61,19 @@ const VisitedParks: React.FC = () => {
                   }}
                 >
                   <div className="absolute inset-0 bg-black opacity-40 hover:opacity-0 transition-opacity"></div>
-
-                  <h2 className="text-lg font-bold text-white absolute top-4 left-4 z-10">
-                    {process.env.NEXT_PUBLIC_VISITED_PARKS_ENABLED ===
-                      'true' && (
-                      <AddRemoveButton
-                        park={park}
-                        isParkVisited={isParkVisited}
-                        toggleVisited={toggleVisited}
-                      />
-                    )}
-
-                    {park.fullName}
-                  </h2>
+                  <div className="text-lg font-bold text-white absolute top-4 left-4 z-10">
+                    <>
+                      {process.env.NEXT_PUBLIC_VISITED_PARKS_ENABLED ===
+                        'true' && (
+                        <AddRemoveButton
+                          park={park}
+                          isParkVisited={isParkVisited}
+                          toggleVisited={toggleVisited}
+                        />
+                      )}
+                      <h2> {park.fullName}</h2>
+                    </>
+                  </div>
                 </Link>
               );
             })}
