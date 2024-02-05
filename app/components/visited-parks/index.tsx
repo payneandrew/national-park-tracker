@@ -20,7 +20,6 @@ const VisitedParks: React.FC = () => {
 
   const storageVisitedParksCodes = getStoredVisitedParkCodes();
 
-  console.log('storageVisitedParksCodes', storageVisitedParksCodes);
   const { data, error, isLoading } = useSWR<ParkResponse>(
     `https://developer.nps.gov/api/v1/parks?api_key=${
       process.env.NEXT_PUBLIC_NP_API_KEY
@@ -33,29 +32,42 @@ const VisitedParks: React.FC = () => {
   const visitedParks = storageVisitedParksCodes ? data?.data : [];
 
   return (
-    <div className="flex items-center justify-center">
+    <div>
       {!isLoading && visitedParks ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {visitedParks.map((park) => (
-              <Link
-                className="bg-white p-4 rounded-lg shadow-md"
-                key={park.id}
-                href={`/park-detail/${park.parkCode}`}
-              >
-                <div className="flex justify-between items-start">
-                  <h2 className="text-xl font-semibold mb-2 text-rocks-canyons">
+            {visitedParks.map((park) => {
+              const backgroundImageStyle = park.images
+                ? {
+                    backgroundImage: `url(${park.images[0].url})`,
+                  }
+                : { backgroundColor: 'white' };
+
+              return (
+                <Link
+                  className="pt-2 px-2 rounded-lg shadow-md relative overflow-hidden"
+                  key={park.id}
+                  href={`/park-detail/${park.parkCode}`}
+                  style={{
+                    ...backgroundImageStyle,
+                    backgroundSize: 'cover',
+                    width: '300px',
+                    height: '200px',
+                  }}
+                >
+                  <div className="absolute inset-0 bg-black opacity-40 hover:opacity-0 transition-opacity"></div>
+                  <h2 className="text-lg font-bold text-white absolute top-4 left-4 z-10">
+                    <Image
+                      src="/icons/checked.png"
+                      alt="Visited"
+                      width={50}
+                      height={50}
+                    />
                     {park.fullName}
                   </h2>
-                  <Image
-                    src="/icons/checked.png"
-                    alt="Visited"
-                    width={50}
-                    height={50}
-                  />
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
           {visitedParks.length === 0 && (
             <div>You have not added any parks yet.</div>
