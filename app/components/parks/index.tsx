@@ -1,9 +1,10 @@
 'use client';
 
 import { useParksState } from '@/app/hooks/use-parks-state';
+import useVisitedParks from '@/app/hooks/use-visited-parks';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Loading from '../loading';
 import ParkImage from '../park-image';
 import Toast from '../toast';
@@ -15,44 +16,8 @@ interface ParksProps {
 const Parks: React.FC<ParksProps> = ({ stateCode }) => {
   const [showVisitedToast, setShowVisitedToast] = useState(false);
   const [showRemovedToast, setShowRemovedToast] = useState(false);
-  const [visited, setVisited] = useState<string[]>([]);
-
+  const { isParkVisited, toggleVisited } = useVisitedParks();
   const { data: parks, isLoading } = useParksState(stateCode);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storageVisited = localStorage.getItem('visited');
-
-      if (!storageVisited) {
-        localStorage.setItem('visited', JSON.stringify([]));
-      } else {
-        setVisited(JSON.parse(storageVisited));
-      }
-    }
-  }, []);
-
-  const isParkVisited = (parkCode: string) => {
-    return visited.includes(parkCode);
-  };
-
-  const handleSetVisited = (
-    parkCode: string,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.stopPropagation();
-    event.preventDefault();
-    let newVisited: string[];
-
-    if (visited.includes(parkCode)) {
-      newVisited = visited.filter((id) => id !== parkCode);
-      setShowRemovedToast(true);
-    } else {
-      newVisited = [...visited, parkCode];
-      setShowVisitedToast(true);
-    }
-    setVisited(newVisited);
-    localStorage.setItem('visited', JSON.stringify(newVisited));
-  };
 
   return (
     <>
@@ -82,7 +47,7 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
                     }
                     className="flex-shrink-0"
                     onClick={(event) => {
-                      handleSetVisited(park.parkCode, event);
+                      toggleVisited(park.parkCode, event);
                     }}
                     data-cy="add-remove-park-button"
                   >
@@ -92,7 +57,7 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
                           ? '/icons/checked.png'
                           : '/icons/unchecked.png'
                       }
-                      alt={park.visited ? 'Visited' : 'Not Visited'}
+                      alt={!!isParkVisited ? 'Visited' : 'Not Visited'}
                       width={50}
                       height={50}
                       className="cursor-pointer transform transition-transform duration-200 hover:scale-125"
