@@ -1,10 +1,21 @@
+'use client';
+
 import Link from 'next/link';
 import SquareContainer from './components/square-container';
 
 export default function Page() {
+  // const { data: parks } = useAllParks();
+  // const randomPark =
+  //   parks?.data[Math.floor(Math.random() * (Number(parks?.total) || 0))];
+  // const backgroundImageStyle = randomPark?.images
+  //   ? {
+  //       backgroundImage: `url(${randomPark.images[0].url})`,
+  //     }
+  //   : { backgroundColor: 'white' };
+
   return (
     <>
-      <div className="flex items-center flex-col gap-8">
+      <div className="flex items-center flex-col gap-8 mb-36">
         <div className="w-full relative">
           <div className=" border-copper-brown w-full border-t"></div>
           <h2 className="text-copper-brown justify-center font-schibsted-grotesk font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-4">
@@ -58,6 +69,27 @@ export default function Page() {
             backgroundColor="black-leather-jacket"
           />
         </div>
+      </div>
+      <div className="flex justify-start">
+        <h2 className="text-3xl text-copper-brown mb-4 font-abril-fatface">
+          Dive into a park
+        </h2>
+        {/* <Link
+          className="pt-2 px-2 rounded-lg shadow-md relative overflow-hidden"
+          key={randomPark.id}
+          href={`/park-detail/${randomPark.parkCode}`}
+          style={{
+            ...backgroundImageStyle,
+            backgroundSize: 'cover',
+            width: '300px',
+            height: '200px',
+          }}
+        >
+          <div className="absolute inset-0 bg-black opacity-40 hover:opacity-0 transition-opacity"></div>
+          <div className="text-lg font-bold text-white absolute top-4 left-4 z-10">
+            <h2> {randomPark.fullName}</h2>
+          </div>
+        </Link> */}
       </div>
     </>
   );

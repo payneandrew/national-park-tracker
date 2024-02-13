@@ -64,24 +64,9 @@ export default function RootLayout({
               </ul>
             </div>
           </nav>
-          <main className="flex flex-grow justify-center p-10 flex-col">
+          <main className="flex flex-grow justify-center p-10 flex-col ">
             <SurveyProvider>{children}</SurveyProvider>
           </main>
-
-          <footer className="bg-coffee-brown text-white text-center p-4 flex justify-between">
-            <p>
-              {new Date().getFullYear()} National Parks Tracker by Andrew Payne
-            </p>
-            <p>
-              Made possible by the{' '}
-              <Link
-                href="https://www.nps.gov/subjects/developer/api-documentation.htm"
-                className="underline"
-              >
-                National Parks API
-              </Link>
-            </p>
-          </footer>
         </div>
       </body>
     </html>
