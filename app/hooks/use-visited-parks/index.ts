@@ -1,40 +1,41 @@
-import { useEffect, useState } from 'react';
+import { fetcher } from '@/app/utils/api';
+import axios from 'axios';
+import useSWR from 'swr';
 
 const useVisitedParks = () => {
-  const [visited, setVisited] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storageVisited = localStorage.getItem('visited');
-
-      if (!storageVisited) {
-        localStorage.setItem('visited', JSON.stringify([]));
-      } else {
-        setVisited(JSON.parse(storageVisited));
-      }
-    }
-  }, []);
+  const { data: parkCodes } = useSWR<string[]>(
+    `${process.env.NEXT_PUBLIC_API_URL}/visited-parks/park-codes`,
+    fetcher
+  );
 
   const isParkVisited = (parkCode: string) => {
-    return visited.includes(parkCode);
+    return parkCodes ? parkCodes.includes(parkCode) : false;
   };
 
-  const toggleVisited = (
+  const toggleVisited = async (
     parkCode: string,
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.stopPropagation();
     event.preventDefault();
-    let newVisited: string[];
 
-    if (visited.includes(parkCode)) {
-      newVisited = visited.filter((id) => id !== parkCode);
-    } else {
-      newVisited = [...visited, parkCode];
-    }
-
-    setVisited(newVisited);
-    localStorage.setItem('visited', JSON.stringify(newVisited));
+    isParkVisited(parkCode) === true
+      ? await axios.delete(
+          `${process.env.NEXT_PUBLIC_API_URL}/visited-parks/${parkCode}`,
+          {
+            headers: {
+              Accept: 'application/json',
+            },
+          }
+        )
+      : await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/visited-parks/${parkCode}`,
+          {
+            headers: {
+              Accept: 'application/json',
+            },
+          }
+        );
   };
 
   return { isParkVisited, toggleVisited };

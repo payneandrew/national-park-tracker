@@ -10,31 +10,13 @@ import AddRemoveButton from '../add-remove-button';
 
 const VisitedParks: React.FC = () => {
   const { isParkVisited, toggleVisited } = useVisitedParks();
-  const getStoredVisitedParkCodes = () => {
-    if (typeof window !== 'undefined') {
-      const storageVisited = localStorage.getItem('visited');
-      if (storageVisited) {
-        return JSON.parse(storageVisited);
-      }
-    }
-    return null;
-  };
 
-  const storageVisitedParksCodes: string[] | null = getStoredVisitedParkCodes();
-
-  const shouldFetchData =
-    storageVisitedParksCodes && storageVisitedParksCodes.length !== 0;
-
-  const { data, error, isLoading } = useSWR<ParkResponse>(
-    shouldFetchData
-      ? `https://developer.nps.gov/api/v1/parks?api_key=${
-          process.env.NEXT_PUBLIC_NP_API_KEY
-        }&parkCode=${storageVisitedParksCodes.join(',')}`
-      : null,
+  const { data, error, isLoading, mutate } = useSWR<ParkResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/visited-parks`,
     fetcher
   );
 
-  const visitedParks = shouldFetchData ? data?.data : [];
+  const visitedParks = data?.data;
 
   return (
     <div>
