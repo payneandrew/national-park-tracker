@@ -9,9 +9,6 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'brown-earth': '#8B4513',
-        'wood-trees': '#5D4617',
-        'rocks-canyons': '#A0522D',
         'national-park-green': '#2e7d32',
         'copper-brown': '#C56C39',
         'coffee-brown': '#6F4930',

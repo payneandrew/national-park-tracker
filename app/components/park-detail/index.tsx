@@ -15,7 +15,7 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-row items-center gap-2">
-        <h1 className="text-3xl font-semibold text-rocks-canyons">
+        <h1 className="text-3xl font-semibold text-copper-brown">
           {park.fullName}
         </h1>
         {process.env.NEXT_PUBLIC_VISITED_PARKS_ENABLED === 'true' && (
@@ -34,15 +34,15 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
           },
         ]}
       />
-      <h2 className="text-lg font-semibold text-rocks-canyons">Description</h2>
+      <h2 className="text-lg font-semibold text-copper-brown">Description</h2>
       <p className="text-gray-700">{park.description}</p>
-      <h2 className="text-lg font-semibold text-rocks-canyons">
+      <h2 className="text-lg font-semibold text-copper-brown">
         Weather Information
       </h2>
       <p className="text-gray-700">{park.weatherInfo}</p>
       {park.activities && park.activities.length > 0 && (
         <>
-          <h2 className="text-lg font-semibold text-rocks-canyons">
+          <h2 className="text-lg font-semibold text-copper-brown">
             Activities
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
@@ -59,7 +59,7 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
       )}
       {park.entranceFees && park.entranceFees.length > 0 && (
         <>
-          <h2 className="text-xl font-semibold text-rocks-canyons">
+          <h2 className="text-xl font-semibold text-copper-brown">
             Entrance Fees
           </h2>
           {park.entranceFees.map((fee, index) => (
@@ -78,7 +78,7 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
           ))}
         </>
       )}
-      <h2 className="text-lg font-semibold text-rocks-canyons">Directions</h2>
+      <h2 className="text-lg font-semibold text-copper-brown">Directions</h2>
       <p className="text-gray-700">{park.directionsInfo}</p>
       {park.images && park.images.length > 0 && (
         <ImageGrid images={park.images} />

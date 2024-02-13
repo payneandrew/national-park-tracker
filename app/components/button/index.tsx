@@ -13,14 +13,14 @@ const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
 }) => {
   const buttonVariant: Record<ButtonVariant, string> = {
-    primary: 'bg-wood-trees',
-    secondary: 'bg-national-park-green',
+    primary: 'bg-coffee-brown',
+    secondary: 'bg-mary-green',
   };
 
   return (
     <button
       onClick={onClick}
-      className={`${buttonVariant[variant]} marker:-rounded p-2 m-2 bg-wood-trees cursor-pointer transform transition-transform duration-200 hover:scale-105 text-white shadow-lg`}
+      className={`${buttonVariant[variant]} marker:-rounded p-2 m-2 bg-coffee-brown cursor-pointer transform transition-transform duration-200 hover:scale-105 text-white shadow-lg`}
     >
       {children}
     </button>

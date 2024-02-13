@@ -21,7 +21,7 @@ const ActivitiesGrid: React.FC<ActivitiesProps> = ({ activities }) => {
           <button
             key={activity.id}
             className={`rounded overflow-hidden shadow-lg p-4 transform transition-transform duration-200 hover:scale-105 ${
-              isActivityChosen ? 'bg-green-500' : 'bg-wood-trees'
+              isActivityChosen ? 'bg-mary-green' : 'bg-coffee-brown'
             }`}
             onClick={() => chooseActivity(activity)}
           >

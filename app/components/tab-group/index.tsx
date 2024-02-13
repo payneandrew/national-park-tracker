@@ -20,7 +20,7 @@ const TabGroup: React.FC<TabsProps> = ({ tabs }) => {
             key={name}
             className={`mr-1 cursor-pointer ${
               activeTab === name
-                ? 'text-wood-trees border-b-2 border-green-600'
+                ? 'text-coffee-brown border-b-2 border-green-600'
                 : ''
             }`}
             onClick={() => setActiveTab(name)}

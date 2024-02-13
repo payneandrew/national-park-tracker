@@ -17,7 +17,7 @@ const CampingInfo: React.FC<CampingInfoProps> = ({ park, campgrounds }) => {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold mb-2 text-rocks-canyons">
+      <h1 className="text-3xl font-semibold mb-2 text-copper-brown">
         {`${park.fullName} Campgrounds`}
       </h1>
       {campgrounds.length > 0 && (
@@ -31,7 +31,7 @@ const CampingInfo: React.FC<CampingInfoProps> = ({ park, campgrounds }) => {
       ) : (
         campgrounds.map((campground) => (
           <div key={campground.id} className="py-2">
-            <h2 className="text-lg font-semibold text-rocks-canyons">
+            <h2 className="text-lg font-semibold text-copper-brown">
               {campground.name}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-2">
