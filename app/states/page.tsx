@@ -8,7 +8,7 @@ export default function StatesPage() {
   }));
   return (
     <>
-      <h1 className="text-3xl font-semibold mb-4 text-white">
+      <h1 className="text-3xl font-semibold mb-4 text-copper-brown">
         Explore Parks by State
       </h1>
       <div className="flex min-h-screen flex-col justify-between">

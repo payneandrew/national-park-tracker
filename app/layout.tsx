@@ -64,7 +64,7 @@ export default function RootLayout({
               </ul>
             </div>
           </nav>
-          <main className="flex flex-grow justify-center p-10">
+          <main className="flex flex-grow justify-center p-10 flex-col">
             <SurveyProvider>{children}</SurveyProvider>
           </main>
 

@@ -4,11 +4,14 @@ import SquareContainer from './components/square-container';
 export default function Page() {
   return (
     <>
-      <div className="flex items-center flex-col">
-        <h2 className="text-copper-brown justify-center mb-6 font-schibsted-grotesk font-bold">
-          Welcome to National Park Tracker!
-        </h2>
-        <div className="text-center mb-6">
+      <div className="flex items-center flex-col gap-8">
+        <div className="w-full relative">
+          <div className=" border-copper-brown w-full border-t"></div>
+          <h2 className="text-copper-brown justify-center font-schibsted-grotesk font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-4">
+            Welcome to National Park Tracker!
+          </h2>
+        </div>
+        <div className="text-center">
           <h1 className="text-7xl text-copper-brown mb-4 font-abril-fatface">
             Your nature adventure begins
           </h1>
@@ -18,7 +21,7 @@ export default function Page() {
             your national park exploration dreams come true—virtually.
           </p>
         </div>
-        <div className="flex flex-row gap-2 mb-6">
+        <div className="flex flex-row gap-2">
           <Link
             className="py-2 px-3 bg-copper-brown rounded-3xl"
             href={'/states'}
