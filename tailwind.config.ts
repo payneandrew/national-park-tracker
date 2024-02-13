@@ -8,16 +8,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
       colors: {
         'brown-earth': '#8B4513',
         'wood-trees': '#5D4617',
         'rocks-canyons': '#A0522D',
         'national-park-green': '#2e7d32',
+        'copper-brown': '#C56C39',
+        'coffee-brown': '#6F4930',
+        'black-leather-jacket': '#213A1B',
+        'mary-green': '#56903A',
+      },
+      fontFamily: {
+        'schibsted-grotesk': ['Schibsted Grotesk', 'sans-serif'],
+        'abril-fatface': ['Abril Fatface', 'sans-serif'],
       },
     },
   },
