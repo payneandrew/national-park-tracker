@@ -1,17 +1,26 @@
 'use client';
 
 import Link from 'next/link';
+import MapContainerClustering from './components/map-container-clustering';
 import SquareContainer from './components/square-container';
+import { useAllParks } from './hooks/use-all-parks';
 
 export default function Page() {
-  // const { data: parks } = useAllParks();
-  // const randomPark =
-  //   parks?.data[Math.floor(Math.random() * (Number(parks?.total) || 0))];
-  // const backgroundImageStyle = randomPark?.images
-  //   ? {
-  //       backgroundImage: `url(${randomPark.images[0].url})`,
-  //     }
-  //   : { backgroundColor: 'white' };
+  const { data: parks } = useAllParks();
+  const randomPark =
+    parks?.data[Math.floor(Math.random() * (Number(parks?.total) || 0))];
+
+  const backgroundImageStyle = randomPark?.images
+    ? {
+        backgroundImage: `url(${randomPark.images[0].url})`,
+      }
+    : { backgroundColor: 'white' };
+
+  const markerPositions = parks?.data.map((park) => ({
+    lat: Number(park.latitude),
+    lng: Number(park.longitude),
+    label: park.fullName,
+  }));
 
   return (
     <>
@@ -70,26 +79,31 @@ export default function Page() {
           />
         </div>
       </div>
-      <div className="flex justify-start">
+      <div className="flex justify-start flex-col pl-20 gap-6">
         <h2 className="text-3xl text-copper-brown mb-4 font-abril-fatface">
           Dive into a park
         </h2>
-        {/* <Link
-          className="pt-2 px-2 rounded-lg shadow-md relative overflow-hidden"
-          key={randomPark.id}
-          href={`/park-detail/${randomPark.parkCode}`}
-          style={{
-            ...backgroundImageStyle,
-            backgroundSize: 'cover',
-            width: '300px',
-            height: '200px',
-          }}
-        >
-          <div className="absolute inset-0 bg-black opacity-40 hover:opacity-0 transition-opacity"></div>
-          <div className="text-lg font-bold text-white absolute top-4 left-4 z-10">
-            <h2> {randomPark.fullName}</h2>
-          </div>
-        </Link> */}
+        {randomPark && (
+          <Link
+            className="pt-2 px-2 rounded-lg shadow-md relative overflow-hidden"
+            key={randomPark.id}
+            href={`/park-detail/${randomPark.parkCode}`}
+            style={{
+              ...backgroundImageStyle,
+              backgroundSize: 'cover',
+              width: '300px',
+              height: '200px',
+            }}
+          >
+            <div className="absolute inset-0 bg-black opacity-40 hover:opacity-0 transition-opacity"></div>
+            <div className="text-lg font-bold text-white absolute top-4 left-4 z-10">
+              <h2> {randomPark.fullName}</h2>
+            </div>
+          </Link>
+        )}
+        {parks && markerPositions && (
+          <MapContainerClustering markerPositions={markerPositions} zoom={4} />
+        )}
       </div>
     </>
   );
