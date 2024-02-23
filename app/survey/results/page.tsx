@@ -21,7 +21,9 @@ export default async function ResultsPage() {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold text-white">Recommended Parks</h1>
+      <h1 className="text-3xl font-semibold text-copper-brown">
+        Recommended Parks
+      </h1>
       <div className="flex min-h-screen flex-col">
         <div className="flex justify-end py-4">
           <Link

@@ -35,7 +35,7 @@ const Parks: React.FC<ParksProps> = ({ stateCode }) => {
               href={`/park-detail/${park.parkCode}`}
             >
               <div className="flex justify-between items-start">
-                <h2 className="text-xl font-semibold mb-2 text-rocks-canyons">
+                <h2 className="text-xl font-semibold mb-2 text-copper-brown">
                   {park.fullName}
                 </h2>
                 {process.env.NEXT_PUBLIC_VISITED_PARKS_ENABLED === 'true' && (

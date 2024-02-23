@@ -20,15 +20,6 @@ const MapContainer: React.FC<MapContainerProps> = ({
     width: '100%',
   };
 
-  const labelStyles = {
-    color: 'white',
-    background: 'rgba(0, 0, 0, 0.7)',
-    padding: '8px',
-    borderRadius: '4px',
-    fontSize: '14px',
-    fontWeight: 'bold',
-  };
-
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
       <GoogleMap
