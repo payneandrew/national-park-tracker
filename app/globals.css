@@ -15,10 +15,20 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+.gradient-sunset {
+  @apply bg-gradient-to-br from-orange-500 to-red-500;
+}
 
 body {
-  color: rgb(var(--foreground-rgb));
-  /* Use national park-inspired colors for the background */
-  background: linear-gradient(to bottom, #78b445, #2e7d32)
-    rgb(var(--background-start-rgb));
+  font-family: 'Schibsted Grotesk', sans-serif;
+}
+
+@font-face {
+  font-family: 'Schibsted Grotesk';
+  src: url('../public/fonts/SchibstedGrotesk-VariableFont_wght.ttf');
+}
+
+@font-face {
+  font-family: 'Abril Fatface';
+  src: url('../public/fonts/AbrilFatface-Regular.ttf');
 }

@@ -21,7 +21,7 @@ export default async function ActivitiesPage() {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold text-white">
+      <h1 className="text-3xl font-semibold text-copper-brown">
         Select the activities that are important to you
       </h1>
       <div className="flex min-h-screen flex-col gap-4">

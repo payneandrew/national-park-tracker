@@ -11,7 +11,7 @@ const ActivitiesGrid: React.FC<ActivitiesProps> = ({ activities }) => {
   const { chooseActivity, chosenActivities } = useSurveyContext();
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-min">
       {activities.map((activity) => {
         const isActivityChosen = !!chosenActivities.find(
           (chosenActivity) => chosenActivity.id === activity.id
@@ -21,7 +21,7 @@ const ActivitiesGrid: React.FC<ActivitiesProps> = ({ activities }) => {
           <button
             key={activity.id}
             className={`rounded overflow-hidden shadow-lg p-4 transform transition-transform duration-200 hover:scale-105 ${
-              isActivityChosen ? 'bg-green-500' : 'bg-wood-trees'
+              isActivityChosen ? 'bg-mary-green' : 'bg-coffee-brown'
             }`}
             onClick={() => chooseActivity(activity)}
           >

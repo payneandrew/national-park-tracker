@@ -19,7 +19,7 @@ const AmenitiesGrid: React.FC<AmenitiesProps> = ({ amenities }) => {
           <button
             key={amenity.id}
             className={`rounded overflow-hidden shadow-lg p-4 transform transition-transform duration-200 hover:scale-105 ${
-              isAmenityChosen ? 'bg-green-500' : 'bg-wood-trees'
+              isAmenityChosen ? 'bg-green-500' : 'bg-coffee-brown'
             }`}
             onClick={() => chooseAmenity(amenity)}
           >
