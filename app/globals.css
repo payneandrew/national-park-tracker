@@ -15,6 +15,9 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+.gradient-sunset {
+  @apply bg-gradient-to-br from-orange-500 to-red-500;
+}
 
 body {
   font-family: 'Schibsted Grotesk', sans-serif;

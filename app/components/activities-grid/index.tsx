@@ -11,7 +11,7 @@ const ActivitiesGrid: React.FC<ActivitiesProps> = ({ activities }) => {
   const { chooseActivity, chosenActivities } = useSurveyContext();
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-min">
       {activities.map((activity) => {
         const isActivityChosen = !!chosenActivities.find(
           (chosenActivity) => chosenActivity.id === activity.id

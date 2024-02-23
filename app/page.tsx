@@ -24,7 +24,7 @@ export default function Page() {
 
   return (
     <>
-      <div className="flex items-center flex-col gap-8 mb-36">
+      <div className="flex items-center flex-col gap-8 mb-36 ">
         <div className="w-full relative">
           <div className=" border-copper-brown w-full border-t"></div>
           <h2 className="text-copper-brown justify-center font-schibsted-grotesk font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-4">
@@ -57,10 +57,10 @@ export default function Page() {
           </Link>
         </div>
         <div className="flex flex-row gap-3">
-          <SquareContainer
+          {/* <SquareContainer
             src="/images/rafting.jpeg"
             backgroundColor="black-leather-jacket"
-          />
+          /> */}
           <SquareContainer
             src="/images/walking-in-the-woods.jpeg"
             backgroundColor="coffee-brown"
@@ -73,10 +73,10 @@ export default function Page() {
             src="/images/sunset.jpeg"
             backgroundColor="coffee-brown"
           />
-          <SquareContainer
+          {/* <SquareContainer
             src="/images/rafting.jpeg"
             backgroundColor="black-leather-jacket"
-          />
+          /> */}
         </div>
       </div>
       <div className="flex justify-start flex-col pl-20 gap-6">
