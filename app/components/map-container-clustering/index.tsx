@@ -38,6 +38,7 @@ const MapContainerClustering: React.FC<MapContainerClusteringProps> = ({
       >
         <MarkerClusterer gridSize={60} averageCenter enableRetinaIcons>
           {(clusterer) =>
+            //@ts-ignore
             markerPositions.map((position, index) => (
               <Marker
                 key={index}

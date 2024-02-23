@@ -13,7 +13,7 @@ interface DetailsProps {
 const Details: React.FC<DetailsProps> = ({ park }) => {
   const { isParkVisited, toggleVisited } = useVisitedParks();
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-4">
       <div className="flex flex-row items-center gap-2">
         <h1 className="text-3xl font-semibold text-copper-brown">
           {park.fullName}
@@ -34,22 +34,22 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
           },
         ]}
       />
-      <h2 className="text-lg font-semibold text-copper-brown">Description</h2>
+      <h2 className="text-xl font-semibold text-copper-brown">Description</h2>
       <p className="text-gray-700">{park.description}</p>
-      <h2 className="text-lg font-semibold text-copper-brown">
+      <h2 className="text-xl font-semibold text-copper-brown">
         Weather Information
       </h2>
       <p className="text-gray-700">{park.weatherInfo}</p>
       {park.activities && park.activities.length > 0 && (
         <>
-          <h2 className="text-lg font-semibold text-copper-brown">
+          <h2 className="text-xl font-semibold text-copper-brown">
             Activities
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+          <div className="flex flex-wrap gap-2">
             {park.activities.map((activity, index) => (
               <div
                 key={index}
-                className="bg-gray-200 text-gray-700 py-1 px-2 rounded-full text-sm justify-center items-center flex"
+                className="bg-black-leather-jacket text-white py-2 px-4 rounded-full text-sm"
               >
                 {activity.name}
               </div>
@@ -58,10 +58,10 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
         </>
       )}
       {park.entranceFees && park.entranceFees.length > 0 && (
-        <>
-          <h2 className="text-xl font-semibold text-copper-brown">
+        <details>
+          <summary className="text-xl font-semibold text-copper-brown mb-4 cursor-pointer">
             Entrance Fees
-          </h2>
+          </summary>
           {park.entranceFees.map((fee, index) => (
             <div
               className="mb-4 p-4 bg-gray-100 rounded-lg text-gray-700"
@@ -76,9 +76,9 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
               </p>
             </div>
           ))}
-        </>
+        </details>
       )}
-      <h2 className="text-lg font-semibold text-copper-brown">Directions</h2>
+      <h2 className="text-xl font-semibold text-copper-brown">Directions</h2>
       <p className="text-gray-700">{park.directionsInfo}</p>
       {park.images && park.images.length > 0 && (
         <ImageGrid images={park.images} />
