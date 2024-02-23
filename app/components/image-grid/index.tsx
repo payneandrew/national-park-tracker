@@ -20,9 +20,6 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
   };
   return (
     <>
-      <h2 className="text-xl font-semibold mb-2 text-copper-brown">
-        Park Images
-      </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {images.map((image, index) => (
           <button

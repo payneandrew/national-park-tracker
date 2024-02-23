@@ -26,14 +26,9 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
           />
         )}
       </div>
-      <MapContainer
-        markerPositions={[
-          {
-            lat: Number(park.latitude),
-            lng: Number(park.longitude),
-          },
-        ]}
-      />
+      {park.images && park.images.length > 0 && (
+        <ImageGrid images={park.images} />
+      )}
       <h2 className="text-xl font-semibold text-copper-brown">Description</h2>
       <p className="text-gray-700">{park.description}</p>
       <h2 className="text-xl font-semibold text-copper-brown">
@@ -59,7 +54,7 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
       )}
       {park.entranceFees && park.entranceFees.length > 0 && (
         <details>
-          <summary className="text-xl font-semibold text-copper-brown mb-4 cursor-pointer">
+          <summary className="text-xl font-semibold text-copper-brown cursor-pointer">
             Entrance Fees
           </summary>
           {park.entranceFees.map((fee, index) => (
@@ -80,9 +75,14 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
       )}
       <h2 className="text-xl font-semibold text-copper-brown">Directions</h2>
       <p className="text-gray-700">{park.directionsInfo}</p>
-      {park.images && park.images.length > 0 && (
-        <ImageGrid images={park.images} />
-      )}
+      <MapContainer
+        markerPositions={[
+          {
+            lat: Number(park.latitude),
+            lng: Number(park.longitude),
+          },
+        ]}
+      />
     </div>
   );
 };
