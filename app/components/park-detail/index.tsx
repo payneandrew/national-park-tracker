@@ -1,10 +1,10 @@
 'use client';
 
 import ImageGrid from '@/app/components/image-grid';
-import MapContainer from '@/app/components/map-container';
 import useVisitedParks from '@/app/hooks/use-visited-parks';
 import { ParkDetail } from '@/nps-api/parks/types';
 import AddRemoveButton from '../add-remove-button';
+import MapContainer from '../map-container';
 
 interface DetailsProps {
   park: ParkDetail;
@@ -26,9 +26,14 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
           />
         )}
       </div>
-      {park.images && park.images.length > 0 && (
-        <ImageGrid images={park.images} />
-      )}
+      <MapContainer
+        markerPositions={[
+          {
+            lat: Number(park.latitude),
+            lng: Number(park.longitude),
+          },
+        ]}
+      />
       <h2 className="text-xl font-semibold text-copper-brown">Description</h2>
       <p className="text-gray-700">{park.description}</p>
       <h2 className="text-xl font-semibold text-copper-brown">
@@ -75,14 +80,9 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
       )}
       <h2 className="text-xl font-semibold text-copper-brown">Directions</h2>
       <p className="text-gray-700">{park.directionsInfo}</p>
-      <MapContainer
-        markerPositions={[
-          {
-            lat: Number(park.latitude),
-            lng: Number(park.longitude),
-          },
-        ]}
-      />
+      {park.images && park.images.length > 0 && (
+        <ImageGrid images={park.images} />
+      )}
     </div>
   );
 };
