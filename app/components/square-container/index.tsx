@@ -11,7 +11,7 @@ const SquareContainer: React.FC<SquareContainerProps> = ({
 }) => {
   return (
     <div
-      className={`bg-${backgroundColor} rounded-3xl w-96 h-96 flex items-center justify-center`}
+      className={`bg-${backgroundColor} rounded-3xl w-full lg:w-96 h-96 flex items-center justify-center`}
     >
       <Image
         src={src}

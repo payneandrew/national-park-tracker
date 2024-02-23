@@ -27,7 +27,7 @@ export default function Page() {
       <div className="flex items-center flex-col gap-8 mb-36 ">
         <div className="w-full relative">
           <div className=" border-copper-brown w-full border-t"></div>
-          <h2 className="text-copper-brown justify-center font-schibsted-grotesk font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-4">
+          <h2 className="text-copper-brown justify-center font-schibsted-grotesk font-bold absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-4 text-center">
             Welcome to National Park Tracker!
           </h2>
         </div>
@@ -56,7 +56,7 @@ export default function Page() {
             <p className="text-white">Find your park</p>
           </Link>
         </div>
-        <div className="flex flex-row gap-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
           {/* <SquareContainer
             src="/images/rafting.jpeg"
             backgroundColor="black-leather-jacket"
@@ -91,8 +91,8 @@ export default function Page() {
             style={{
               ...backgroundImageStyle,
               backgroundSize: 'cover',
-              width: '300px',
-              height: '200px',
+              width: '22rem',
+              height: '12rem',
             }}
           >
             <div className="absolute inset-0 bg-black opacity-40 hover:opacity-0 transition-opacity"></div>
