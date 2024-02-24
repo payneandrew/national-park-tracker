@@ -103,14 +103,17 @@ export default function Page() {
           <SquareContainer
             src="/images/walking-in-the-woods.jpeg"
             backgroundColor="coffee-brown"
+            delay={100}
           />
           <SquareContainer
             src="/images/water.jpeg"
             backgroundColor="black-leather-jacket"
+            delay={300}
           />
           <SquareContainer
             src="/images/sunset.jpeg"
             backgroundColor="coffee-brown"
+            delay={500}
           />
         </div>
       </div>
