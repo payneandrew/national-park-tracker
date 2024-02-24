@@ -49,4 +49,9 @@ export enum USStates {
   'WV' = 'West Virginia',
   'WI' = 'Wisconsin',
   'WY' = 'Wyoming',
+  'GU' = 'Guam',
+  'AS' = 'American Somoa',
+  'PR' = 'Puerto Rico',
+  'VI' = 'U.S. Virgin Islands',
+  'MP' = 'Northern Mariana Islands',
 }

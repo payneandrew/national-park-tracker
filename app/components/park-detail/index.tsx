@@ -2,6 +2,7 @@
 
 import ImageGrid from '@/app/components/image-grid';
 import useVisitedParks from '@/app/hooks/use-visited-parks';
+import { USStates } from '@/mocks/states';
 import { ParkDetail } from '@/nps-api/parks/types';
 import AddRemoveButton from '../add-remove-button';
 import MapContainer from '../map-container';
@@ -12,12 +13,24 @@ interface DetailsProps {
 
 const Details: React.FC<DetailsProps> = ({ park }) => {
   const { isParkVisited, toggleVisited } = useVisitedParks();
+
+  const stateCodes = park.states.split(',');
+  const stateNames = stateCodes.map(
+    (code) => USStates[code.trim() as keyof typeof USStates]
+  );
+  const formattedStateNames = stateNames.join(', ');
+
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-row items-center gap-2">
-        <h1 className="text-3xl font-semibold text-copper-brown">
-          {park.fullName}
-        </h1>
+      <div className="flex flex-row items-start gap-2">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl font-semibold text-copper-brown">
+            {park.fullName}
+          </h1>
+          <h3 className="text-xl text-black-leather-jacket">
+            {formattedStateNames}
+          </h3>
+        </div>
         {process.env.NEXT_PUBLIC_VISITED_PARKS_ENABLED === 'true' && (
           <AddRemoveButton
             park={park}
