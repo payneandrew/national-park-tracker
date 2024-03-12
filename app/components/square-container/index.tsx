@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 interface SquareContainerProps {
   backgroundColor: string;
   src: string;
-  delay: number;
+  delay?: number;
 }
 
 const SquareContainer: React.FC<SquareContainerProps> = ({
