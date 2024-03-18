@@ -99,7 +99,7 @@ export default function Page() {
             <p className="text-white">Find your park</p>
           </Link>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+        <div className="flex flex-col lg:flex-row w-full justify-center gap-16">
           <SquareContainer
             src="/images/walking-in-the-woods.jpeg"
             backgroundColor="coffee-brown"
