@@ -17,7 +17,7 @@ const StatePage = async ({ params }: { params: { stateCode: string } }) => {
       </Head>
 
       <div className="container mx-auto mt-8">
-        <h1 className="text-3xl font-semibold mb-4 text-white">{`${
+        <h1 className="text-3xl font-semibold mb-4 text-copper-brown">{`${
           USStates[stateCode as keyof typeof USStates]
         } Parks`}</h1>
         <Parks stateCode={stateCode} />

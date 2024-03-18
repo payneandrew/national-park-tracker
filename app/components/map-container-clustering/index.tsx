@@ -28,6 +28,14 @@ const MapContainerClustering: React.FC<MapContainerClusteringProps> = ({
 
   const [hoveredMarker, setHoveredMarker] = useState<number | null>(null);
 
+  const handleMarkerMouseOver = (index: number) => {
+    setHoveredMarker(index);
+  };
+
+  const handleMarkerMouseOut = () => {
+    setHoveredMarker(null);
+  };
+
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
       <GoogleMap
@@ -43,14 +51,9 @@ const MapContainerClustering: React.FC<MapContainerClusteringProps> = ({
               <Marker
                 key={index}
                 position={position}
-                // label={position.label}
                 clusterer={clusterer}
-                icon={{
-                  url: '/icons/pine.png',
-                  scaledSize: new window.google.maps.Size(50, 50),
-                }}
-                onMouseOver={() => setHoveredMarker(index)}
-                onMouseOut={() => setHoveredMarker(null)}
+                onMouseOver={() => handleMarkerMouseOver(index)}
+                onMouseOut={handleMarkerMouseOut}
               />
             ))
           }
@@ -58,12 +61,13 @@ const MapContainerClustering: React.FC<MapContainerClusteringProps> = ({
         {hoveredMarker !== null && (
           <Marker
             position={markerPositions[hoveredMarker]}
-            label={markerPositions[hoveredMarker].label}
-            icon={{
-              url: '/icons/pine.png',
-              scaledSize: new window.google.maps.Size(50, 50),
+            label={{
+              //@ts-ignore
+              text: markerPositions[hoveredMarker].label,
+              className: 'font-bold',
             }}
-            options={{ visible: true }}
+            onMouseOver={() => handleMarkerMouseOver(hoveredMarker)}
+            onMouseOut={handleMarkerMouseOut}
           />
         )}
       </GoogleMap>

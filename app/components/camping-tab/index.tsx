@@ -1,7 +1,7 @@
 'use client';
 
-import MapContainer from '@/app/components/map-container';
 import { ParkDetail } from '@/nps-api/parks/types';
+import MapContainerClustering from '../map-container-clustering';
 
 interface CampingInfoProps {
   park: ParkDetail;
@@ -21,7 +21,7 @@ const CampingInfo: React.FC<CampingInfoProps> = ({ park, campgrounds }) => {
         {`${park.fullName} Campgrounds`}
       </h1>
       {campgrounds.length > 0 && (
-        <MapContainer markerPositions={markerPositions} zoom={9} />
+        <MapContainerClustering markerPositions={markerPositions} zoom={11} />
       )}
 
       {campgrounds.length === 0 ? (

@@ -37,7 +37,7 @@ const ImageTile: React.FC<ImageTileProps> = ({
       }}
     >
       <div className="absolute inset-0 bg-black opacity-40 hover:opacity-0 transition-opacity"></div>
-      <div className="text-lg font-bold text-white absolute top-4 left-4 z-10">
+      <div className="font-bold text-white absolute top-4 left-4 flex flex-row items-center">
         <>
           {process.env.NEXT_PUBLIC_VISITED_PARKS_ENABLED === 'true' &&
             isParkVisited &&
