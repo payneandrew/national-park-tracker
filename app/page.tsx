@@ -1,5 +1,6 @@
 'use client';
 
+import { ParkResponse } from '@/nps-api/parks/types';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,16 +11,22 @@ import Loading from './components/loading';
 import SquareContainer from './components/square-container';
 import { useAllParks } from './hooks/use-all-parks';
 
+const getRandomParks = (parks: ParkResponse | undefined, count: number) => {
+  if (!parks || !parks.data || !parks.total) {
+    return [];
+  }
+
+  const { data, total } = parks;
+  return Array.from(
+    { length: count },
+    () => data[Math.floor(Math.random() * Number(total))]
+  );
+};
+
 export default function Page() {
   const { data: parks, isLoading } = useAllParks();
 
-  const getRandomPark = () => {
-    return parks?.data[Math.floor(Math.random() * (Number(parks?.total) || 0))];
-  };
-
-  const randomParks = useMemo(() => {
-    return Array.from({ length: 4 }, () => getRandomPark());
-  }, [parks]);
+  const randomParks = useMemo(() => getRandomParks(parks, 4), [parks]);
 
   const markerPositions = parks?.data.map((park) => ({
     lat: Number(park.latitude),
