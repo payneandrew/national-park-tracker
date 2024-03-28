@@ -1,11 +1,12 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useCallback, useMemo } from 'react';
 import ImageTile from './components/image-tile';
 import Loading from './components/loading';
-import MapContainerClustering from './components/map-container-clustering';
 import SquareContainer from './components/square-container';
 import { useAllParks } from './hooks/use-all-parks';
 
@@ -16,7 +17,9 @@ export default function Page() {
     return parks?.data[Math.floor(Math.random() * (Number(parks?.total) || 0))];
   };
 
-  const randomParks = Array.from({ length: 4 }, () => getRandomPark());
+  const randomParks = useMemo(() => {
+    return Array.from({ length: 4 }, () => getRandomPark());
+  }, [parks]);
 
   const markerPositions = parks?.data.map((park) => ({
     lat: Number(park.latitude),
@@ -25,19 +28,26 @@ export default function Page() {
   }));
   const router = useRouter();
 
-  const handleParkSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedParkFullName = event.target.value;
+  const handleParkSelect = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedParkFullName = event.target.value;
 
-    const selectedPark = parks?.data.find(
-      (park) => park.fullName === selectedParkFullName
-    );
+      const selectedPark = parks?.data.find(
+        (park) => park.fullName === selectedParkFullName
+      );
 
-    selectedPark
-      ? router.push(`/park-detail/${selectedPark.parkCode}`)
-      : console.warn(
-          `Park with full name "${selectedParkFullName}" not found.`
-        );
-  };
+      selectedPark
+        ? router.push(`/park-detail/${selectedPark.parkCode}`)
+        : console.warn(
+            `Park with full name "${selectedParkFullName}" not found.`
+          );
+    },
+    [parks?.data, router]
+  );
+
+  const GoogleMap = dynamic(
+    () => import('../app/components/map-container-clustering')
+  );
 
   return (
     <>
@@ -137,7 +147,7 @@ export default function Page() {
           </div>
         )}
         {parks && markerPositions && (
-          <MapContainerClustering markerPositions={markerPositions} zoom={4} />
+          <GoogleMap markerPositions={markerPositions} zoom={4} />
         )}
       </div>
     </>
