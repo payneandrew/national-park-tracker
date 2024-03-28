@@ -1,11 +1,12 @@
 'use client';
 
-import ImageGrid from '@/app/components/image-grid';
 import useVisitedParks from '@/app/hooks/use-visited-parks';
 import { USStates } from '@/mocks/states';
 import { ParkDetail } from '@/nps-api/parks/types';
+import dynamic from 'next/dynamic';
+import { useMemo } from 'react';
 import AddRemoveButton from '../add-remove-button';
-import MapContainer from '../map-container';
+import ImageGrid from '../image-grid';
 
 interface DetailsProps {
   park: ParkDetail;
@@ -15,10 +16,14 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
   const { isParkVisited, toggleVisited } = useVisitedParks();
 
   const stateCodes = park.states.split(',');
-  const stateNames = stateCodes.map(
-    (code) => USStates[code.trim() as keyof typeof USStates]
+  const stateNames = useMemo(
+    () =>
+      stateCodes.map((code) => USStates[code.trim() as keyof typeof USStates]),
+    [stateCodes]
   );
   const formattedStateNames = stateNames.join(', ');
+
+  const GoogleMap = dynamic(() => import('../map-container'), { ssr: false });
 
   return (
     <div className="flex flex-col gap-4">
@@ -39,14 +44,9 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
           />
         )}
       </div>
-      <MapContainer
-        markerPositions={[
-          {
-            lat: Number(park.latitude),
-            lng: Number(park.longitude),
-          },
-        ]}
-      />
+      {park.images && park.images.length > 0 && (
+        <ImageGrid images={park.images} />
+      )}
       <h2 className="text-xl font-semibold text-copper-brown">Description</h2>
       <p className="text-gray-700">{park.description}</p>
       <h2 className="text-xl font-semibold text-copper-brown">
@@ -59,9 +59,9 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
             Activities
           </h2>
           <div className="flex flex-wrap gap-2">
-            {park.activities.map((activity, index) => (
+            {park.activities.map((activity, id) => (
               <div
-                key={index}
+                key={id}
                 className="bg-black-leather-jacket text-white py-2 px-4 rounded-full text-sm"
               >
                 {activity.name}
@@ -93,9 +93,14 @@ const Details: React.FC<DetailsProps> = ({ park }) => {
       )}
       <h2 className="text-xl font-semibold text-copper-brown">Directions</h2>
       <p className="text-gray-700">{park.directionsInfo}</p>
-      {park.images && park.images.length > 0 && (
-        <ImageGrid images={park.images} />
-      )}
+      <GoogleMap
+        markerPositions={[
+          {
+            lat: Number(park.latitude),
+            lng: Number(park.longitude),
+          },
+        ]}
+      />
     </div>
   );
 };

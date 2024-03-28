@@ -53,7 +53,8 @@ export default function Page() {
   );
 
   const GoogleMap = dynamic(
-    () => import('../app/components/map-container-clustering')
+    () => import('../app/components/map-container-clustering'),
+    { ssr: false }
   );
 
   return (

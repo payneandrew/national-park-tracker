@@ -21,9 +21,9 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images }) => {
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {images.map((image, index) => (
+        {images.map((image, id) => (
           <button
-            key={index}
+            key={id}
             className="transform transition-transform duration-200 hover:scale-105"
             onClick={() => openModal(image.url)}
           >
